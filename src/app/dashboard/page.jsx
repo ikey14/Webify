@@ -18,15 +18,7 @@ export default function Home() {
     window.location.href = getSpotifyAuthUrl();
   };
 
-  return (<div className = "justify-center flex flex-col h-screen blue-Black-White-GradBR">
-    <div className = "justify-center flex p-5">
-      <h1>WEBIFY</h1>
-    </div>
-    
-
-    <div className = "justify-center flex p-5">
-      <button onClick = {handleLogin}>LOGIN</button>
-    </div>
-
-  </div>);
+  return (<>
+        <h1>WEBIFY</h1>
+    </>);
 }
