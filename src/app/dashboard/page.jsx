@@ -21,5 +21,7 @@ export default function Home() {
 
   return (<div className = "justify-center flex flex-col h-screen blue-Black-White-GradBR">
     <Header />
+    {/* Widget Container To the right / center */}
+    {/* Playlist to the left as some sort of sidebarK */}
   </div>);
 }
