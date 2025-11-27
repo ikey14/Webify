@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isAuthenticated, getSpotifyAuthUrl } from '@/lib/auth';
+import Header from '@/components/Header';
 
 export default function Home() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Home() {
     window.location.href = getSpotifyAuthUrl();
   };
 
-  return (<>
-        <h1>WEBIFY</h1>
-    </>);
+  return (<div className = "justify-center flex flex-col h-screen blue-Black-White-GradBR">
+    <Header />
+  </div>);
 }
