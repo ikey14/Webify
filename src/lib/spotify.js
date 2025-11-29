@@ -1,3 +1,5 @@
+
+
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
   const token = getAccessToken();
@@ -56,7 +58,7 @@ export async function generatePlaylist(preferences) {
 
 
 
-async function spotifyRequest(url) 
+export async function spotifyRequest(url) 
 {
   const token = getAccessToken();
   

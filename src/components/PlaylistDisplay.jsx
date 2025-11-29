@@ -1,3 +1,47 @@
+'use-client'
+
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { getUserPlaylists } from '@/app/api/ApiCall'
+import PlaylistCard from './PlaylistCard';
+
+export default function PlaylistDisplay({ tracks, setTracks, userName })
+{
+    //0 if no playlist selected, 1 if there is a playlist selected
+    const [hasPlaylist, setHasPlaylist] = useState(0);
+    //Stores all of the user's playlist
+    const [playlists, setPlayLists] = useState([]);
+    //Stores current playlist's ID
+    const [currPlayList, setCurrPlayList] = useState([]);
+
+    useEffect(() => {
+        setPlayLists(getUserPlaylists(userName))
+    }, []);
+
+    return(<div className = "col-auto">
+        {hasPlaylist == 0 && playlists.map(playlist => 
+            <PlaylistCard name = {playlist.name}
+                imgSrc = {playlist.imgSrc}
+                selectPlaylist = {setCurrPlayList()}
+                id = {playlist.id}
+                key = {playlist.id}
+                />
+        )}
+    </div>)
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // Playlist Management Features (OBLIGATORIO)
 // ✅ Funcionalidades Requeridas
 // Eliminar Tracks Individuales
