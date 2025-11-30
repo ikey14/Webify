@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 export default function WidgetContainer({ tracks, setTracks })
 {
-    return(<div>
+    return(<div className = "col-auto justify-center">
         {/* Grid display with all the widgets */}
         <h1>Currently Empty.</h1>
     </div>)

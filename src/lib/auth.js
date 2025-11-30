@@ -71,4 +71,6 @@ export function logout() {
   localStorage.removeItem('spotify_token');
   localStorage.removeItem('spotify_refresh_token');
   localStorage.removeItem('spotify_token_expiration');
+
+  window.location.href = '/';
 }

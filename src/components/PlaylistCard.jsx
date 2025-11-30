@@ -3,11 +3,17 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function PlaylistCard({id, name, imgSrc, selectPlaylist})
+export default function PlaylistCard({id, name, imgSrc, selectPlaylist, setHasPlaylist})
 {
-    return(<div className = "row-auto">
-        <img src = {imgSrc}></img>
-        <h1>{name}</h1>
-        <button onClick = {() => selectPlaylist(id)} classname = "border-2 hover:cursor-pointer"></button>
+    useEffect(() => {
+        console.log(imgSrc);
+        // setHasPlaylist(1);
+    }, []);
+
+    return(<div className = "row-auto flex">
+        {imgSrc != undefined && <img src = {imgSrc} className = "p-2"></img>}
+        {imgSrc == undefined && <img src = "noPlaylistImage.jpg" className = "p-2 max-h-20 max-w-20"></img>}
+        <h1 className = "p-2">{name}</h1>
+        <button onClick = {() => {selectPlaylist(id); setHasPlaylist(true)}} className = "border-2 hover:cursor-pointer pl-1 pr-1 max-h-10">Select</button>
     </div>)
 }

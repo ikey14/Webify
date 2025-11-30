@@ -21,7 +21,7 @@ export default function Home() {
 
   return (<div className = "justify-center flex flex-col h-screen blue-Black-White-GradBR">
     
-    <Header />
+    <Header hasLogout = {false} />
     
     <div className = "justify-center flex p-8">
       <button onClick = {handleLogin} className = "border-2 hover:cursor-pointer hover:bg-linear-to-br from-green-600 to-black rounded-2xl p-2">LOGIN</button>

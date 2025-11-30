@@ -1,4 +1,4 @@
-
+import { getAccessToken } from "./auth";
 
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
@@ -64,8 +64,11 @@ export async function spotifyRequest(url)
   
   if (!token) 
   {
+    // TODO: CREATE refreshAccessToken() in it's corresponding file
+
     // Intentar refrescar token
-    const newToken = await refreshAccessToken();
+    // const newToken = await refreshAccessToken();
+    const newToken = getAccessToken();
     if (!newToken) 
     {
       // Redirigir a login
@@ -78,8 +81,10 @@ export async function spotifyRequest(url)
 
   if (response.status === 401) 
   {
+    // TODO: CREATE refreshAccessToken() in it's corresponding file
+
     // Token expirado, refrescar
-    const newToken = await refreshAccessToken();
+    // const newToken = await refreshAccessToken();
     // Reintentar petición
   }
 

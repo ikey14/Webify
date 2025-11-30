@@ -6,28 +6,49 @@ import { useRouter } from 'next/navigation';
 import { getUserPlaylists } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
 
-export default function PlaylistDisplay({ tracks, setTracks, userName })
+export default function PlaylistDisplay({ tracks, setTracks })
 {
+    let limit = 10;
     //0 if no playlist selected, 1 if there is a playlist selected
-    const [hasPlaylist, setHasPlaylist] = useState(0);
+    const [hasPlaylist, setHasPlaylist] = useState(false);
     //Stores all of the user's playlist
     const [playlists, setPlayLists] = useState([]);
     //Stores current playlist's ID
     const [currPlayList, setCurrPlayList] = useState([]);
 
+    async function loadPlaylists() 
+    {
+        const data = await getUserPlaylists(limit);
+        // ensure an array
+        setPlayLists(data.items || []);
+    }
+
     useEffect(() => {
-        setPlayLists(getUserPlaylists(userName))
+        loadPlaylists();
+        console.log(playlists);
     }, []);
 
-    return(<div className = "col-auto">
-        {hasPlaylist == 0 && playlists.map(playlist => 
+    useEffect(() => {
+        console.log(playlists);
+    }, [playlists]);
+
+    useEffect(() => {
+        console.log(currPlayList);
+        // setHasPlaylist(1);
+    }, [currPlayList]);
+
+    return(<div className = "col-auto justify-center">
+        {!hasPlaylist && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
-                imgSrc = {playlist.imgSrc}
-                selectPlaylist = {setCurrPlayList()}
+                imgSrc = {playlist.images[2]?.url}
+                selectPlaylist = {setCurrPlayList}
+                setHasPlaylist = {setHasPlaylist}
                 id = {playlist.id}
                 key = {playlist.id}
                 />
         )}
+
+        {hasPlaylist && <h1>{currPlayList}</h1>}
     </div>)
 }
 
