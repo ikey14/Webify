@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getUserPlaylists } from '@/app/api/ApiCall'
+import { getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
+import TrackCard from './TrackCard';
 
 export default function PlaylistDisplay({ tracks, setTracks })
 {
@@ -14,7 +15,20 @@ export default function PlaylistDisplay({ tracks, setTracks })
     //Stores all of the user's playlist
     const [playlists, setPlayLists] = useState([]);
     //Stores current playlist's ID
-    const [currPlayList, setCurrPlayList] = useState([]);
+    const [currPlayList, setCurrPlayList] = useState({});
+
+    async function handlePlaylistSelect(id)
+    {
+        const data = await getPlaylistByID(id);
+        setCurrPlayList({
+            id: data.id,
+            name: data.name,
+            imgSrc: data.images[0]?.url,
+            trackItems: data.tracks?.items
+        })
+
+        setHasPlaylist(true);
+    }
 
     async function loadPlaylists() 
     {
@@ -37,18 +51,34 @@ export default function PlaylistDisplay({ tracks, setTracks })
         // setHasPlaylist(1);
     }, [currPlayList]);
 
-    return(<div className = "col-auto justify-center">
+    return(<div className = "flex flex-1 flex-col border-2 rounded-2xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
         {!hasPlaylist && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
-                imgSrc = {playlist.images[2]?.url}
-                selectPlaylist = {setCurrPlayList}
-                setHasPlaylist = {setHasPlaylist}
+                imgSrc = {playlist.images[0]?.url}
+                selectPlaylist = {handlePlaylistSelect}
                 id = {playlist.id}
                 key = {playlist.id}
                 />
         )}
 
-        {hasPlaylist && <h1>{currPlayList}</h1>}
+        {hasPlaylist && <div className = "flex flex-col">
+            <div className = "flex flex-col items-center justify-center">
+                <img src = {currPlayList.imgSrc} className = "border-2 border-white rounded-2xl m-3 max-h-50 max-w-50" />
+                <h1 className = "m-1">{currPlayList.name}</h1>
+                <p className = "m-1">ID: {currPlayList.id}</p>
+            </div>
+
+            <div className = "m-3 flex flex-col">
+                {currPlayList.trackItems?.map(item =>
+                    <TrackCard
+                        id = {item.track.id}
+                        key = {item.track.id}
+                        name = {item.track.name}
+                        imgSrc = {item.track.album?.images[0]?.url}
+                    />
+                )}
+            </div>
+        </div>}
     </div>)
 }
 

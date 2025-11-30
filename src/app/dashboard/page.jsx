@@ -23,9 +23,12 @@ export default function Home() {
   //   window.location.href = getSpotifyAuthUrl();
   // };
 
-  return (<div className = "justify-center flex flex-col min-h-screen blue-Black-White-GradBR">
+  return (<div className = "justify-center flex flex-col min-h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <Header hasLogout = {true} />
-    <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} />
-    <WidgetContainer tracks = {tracks} setTracks = {setTracks} />
+    <div className = "flex flex-1 w-full row-auto">
+      <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} />
+      <WidgetContainer tracks = {tracks} setTracks = {setTracks} />
+    </div>
+
   </div>);
 }

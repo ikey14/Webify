@@ -2,7 +2,8 @@ import { spotifyRequest } from '@/lib/spotify';
 
 export async function getUserPlaylists(limit)
 {
-  const url = `https://api.spotify.com/v1/users/me/playlists?limit=${limit}`
+  // const userUrl = 'https://api.spotify.com/v1/me';
+  const url = `https://api.spotify.com/v1/users/me/playlists?limit=${limit}`;
   // console.log("Getting all playlists from user: " + userName)
   //llamar a spotifyfetch manejo de errores
   const playlists = await spotifyRequest(url);
@@ -11,7 +12,7 @@ export async function getUserPlaylists(limit)
 
 export async function getPlaylistByID(id)
 {
-  const url = `https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n`
+  const url = `https://api.spotify.com/v1/playlists/${id}`
   // console.log("Getting all playlists from user: " + userName)
   //llamar a spotifyfetch manejo de errores
   const playlists = await spotifyRequest(url);
