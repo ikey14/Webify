@@ -18,6 +18,16 @@
   {
     @apply bg-linear-to-br from-blue-800 via-black to-white;
   }
+
+  .green-Black-White-GradBR
+  {
+    @apply bg-linear-to-br from-green-600 via-black to-white;
+  }
+
+  .red-Black-White-GradBR
+  {
+    @apply bg-linear-to-br from-red-600 via-black to-white;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
