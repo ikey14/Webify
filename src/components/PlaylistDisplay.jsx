@@ -51,7 +51,7 @@ export default function PlaylistDisplay({ tracks, setTracks })
         // setHasPlaylist(1);
     }, [currPlayList]);
 
-    return(<div className = "flex flex-1 flex-col border-2 rounded-2xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
+    return(<div className = "flex flex-1 flex-col border-2 rounded-xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
         {!hasPlaylist && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
                 imgSrc = {playlist.images[0]?.url}
@@ -63,7 +63,7 @@ export default function PlaylistDisplay({ tracks, setTracks })
 
         {hasPlaylist && <div className = "flex flex-col">
             <div className = "flex flex-col items-center justify-center">
-                <img src = {currPlayList.imgSrc} className = "border-2 border-white rounded-2xl m-3 max-h-50 max-w-50" />
+                <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl m-3 max-h-50 max-w-50" />
                 <h1 className = "m-1">{currPlayList.name}</h1>
                 <p className = "m-1">ID: {currPlayList.id}</p>
             </div>

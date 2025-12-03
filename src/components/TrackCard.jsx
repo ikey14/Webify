@@ -11,8 +11,20 @@ export default function TrackCard({id, name, imgSrc})
     }, []);
 
     return(<div className = "flex">
-        {imgSrc != undefined && <img src = {imgSrc} className = "border-2 border-red-600 rounded-2xl m-3 max-h-20 max-w-20"></img>}
-        {imgSrc == undefined && <img src = "noPlaylistImage.jpg" className = "border-2 border-red-600 rounded-2xl m-3 max-h-20 max-w-20"></img>}
+        {imgSrc != undefined && <div className = "m-3 max-h-20 max-w-20 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+            <img 
+                src = {imgSrc} 
+                className = "rounded-xl"
+            />
+        </div>}
+
+        {imgSrc == undefined && <div className = "m-3 max-h-20 max-w-20 p-0.5 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+            <img 
+                src = "noPlaylistImage.jpg"
+                className = "rounded-xl"
+            />
+        </div>}
+
         <div className = "flex justify-center items-center">
             <h1 className = "p-2">{name}</h1>
         </div>
