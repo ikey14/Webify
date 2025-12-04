@@ -45,6 +45,7 @@ export default function ArtistWidget({ preferences, setPreferences })
         }
         else
         {
+            setHasArtists(false);
             return;
         }
 
@@ -101,22 +102,24 @@ export default function ArtistWidget({ preferences, setPreferences })
     }
 
     return (<div className = "border-2 border-red-600 m-2 p-2 rounded-2xl min-h-1/6 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3">
-        <form onSubmit = {(e) => handleSubmit(e)}>
-        <div>
-            <input 
-                // {...register('artist', { required: true, maxLength: 30 })} 
-                placeholder = " Artist"
-                className = "border-2 border-gray-600 rounded-2xl"
-                onChange = {(e) => handleChange(e)}
-            />
-            {/* {errors.artist?.type === 'maxLength' && "Artist debe tener menos de 30 caracteres"} */}
+        <div className = "flex flex-row justify-between items-center mb-1">
+            <form onSubmit = {(e) => handleSubmit(e)}>
+            <div>
+                <input 
+                    // {...register('artist', { required: true, maxLength: 30 })} 
+                    placeholder = " Artist"
+                    className = "border-2 border-gray-600 rounded-2xl"
+                    onChange = {(e) => handleChange(e)}
+                />
+                {/* {errors.artist?.type === 'maxLength' && "Artist debe tener menos de 30 caracteres"} */}
+            </div>
+            {/* <input type="submit" /> */}
+            </form>
+            <button onClick = {() => setSelectedArtists([])} className = "border rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
         </div>
-        {/* <input type="submit" /> */}
-        </form>
 
-        {selectedArtists.length != 0 && <div className = "flex flex-row bg-blue-600/50 rounded-xl p-1">
+        {selectedArtists.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
             {selectedArtists.map(artist => <p key = {artist.id} className = "border rounded-xl p-1 m-1 h-fit">{artist.name}</p>)} 
-            <button onClick = {() => setSelectedArtists([])} className = "border rounded-xl p-1 h-fit">❌</button>  
         </div>}
 
         {hasArtists && <div className = "max-h-10/12">

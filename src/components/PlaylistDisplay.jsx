@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
+import { createPlaylist, getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
 
@@ -16,6 +16,12 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     const [playlists, setPlayLists] = useState([]);
     //Stores current playlist's ID
     const [currPlayList, setCurrPlayList] = useState({});
+
+    async function newPlaylist()
+    {
+        const data = createPlaylist("test", "testing newPlaylist() function", false);
+        await handlePlaylistSelect(data.id);
+    }
 
     async function handlePlaylistSelect(id)
     {
@@ -60,6 +66,12 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 key = {playlist.id}
             />
         )}
+
+        {!hasPlaylist && <div>
+            
+            <button onClick = {() => newPlaylist()} className = "border-2 rounded-xl p-2 m-2">NEW</button>
+
+        </div>}
 
         {hasPlaylist && <div className = "flex flex-col">
             <div className = "flex flex-col items-center justify-center">

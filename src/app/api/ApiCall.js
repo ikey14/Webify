@@ -1,4 +1,4 @@
-import { spotifyRequest } from '@/lib/spotify';
+import { spotifyNewPlaylistRequest, spotifyRequest } from '@/lib/spotify';
 
 export async function getUserPlaylists(limit)
 {
@@ -17,6 +17,13 @@ export async function getPlaylistByID(id)
   //llamar a spotifyfetch manejo de errores
   const playlists = await spotifyRequest(url);
   return playlists;
+}
+
+export async function createPlaylist(name, description, isPublic)
+{
+  const body = {name: name, description: description, public: isPublic};
+  const newPlaylist = await spotifyNewPlaylistRequest(body);
+  return newPlaylist;
 }
 
 export async function getArtists(inputName, limit)
