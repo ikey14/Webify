@@ -27,9 +27,9 @@ export default function Home() {
 
   async function generateNewPlaylist()
   {
-    preferences.artists? console.log(preferences.artists) : setPreferences(prev => ({...prev, artists: []}));
-    preferences.genres? console.log(preferences.genres) : setPreferences(prev => ({...prev, genres: []}));
-    preferences.decades? console.log(preferences.decades) : setPreferences(prev => ({...prev, decades: []}));
+    // preferences.artists? console.log(preferences.artists) : setPreferences(prev => ({...prev, artists: []}));
+    // preferences.genres? console.log(preferences.genres) : setPreferences(prev => ({...prev, genres: []}));
+    // preferences.decades? console.log(preferences.decades) : setPreferences(prev => ({...prev, decades: []}));
 
     console.log(preferences);
 

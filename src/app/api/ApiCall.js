@@ -34,3 +34,12 @@ export async function getArtists(inputName, limit)
   const artists = await spotifyRequest(url);
   return artists;
 }
+
+export async function getTracks(inputName, limit)
+{
+  const url = `https://api.spotify.com/v1/search?type=track&q=${encodeURIComponent(inputName)}&limit=${limit}`;
+  console.log("Getting all tracks with: " + inputName)
+  //llamar a spotifyfetch manejo de errores
+  const artists = await spotifyRequest(url);
+  return artists;
+}

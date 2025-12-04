@@ -1,11 +1,6 @@
 // Cada widget debe:
-
-// Ser un componente React independiente
-// Recibir props: onSelect, selectedItems
-// Emitir cambios al componente padre
 // Tener un diseño responsive
 // Mostrar estado de carga cuando haga peticiones
-
 
 // 1. 🎤 Artist Widget
 // Descripción: Buscar y seleccionar artistas favoritos
@@ -29,7 +24,7 @@ export default function ArtistWidget({ preferences, setPreferences })
 {
     // let emptySpaces = "";
     let limit = 10;
-    let privSelectedArtists = [];
+    // let privSelectedArtists = [];
     const [inputArtists, setInputArtists] = useState("");
     const [hasArtists, setHasArtists] = useState(false);
     const [artists, setArtists] = useState({});
@@ -62,7 +57,7 @@ export default function ArtistWidget({ preferences, setPreferences })
 
     function handleSelect(id, name)
     {
-        const isInList = privSelectedArtists.some(artist => artist.id === id);
+        const isInList = selectedArtists.some(artist => artist.id === id);
 
         if(!isInList && selectedArtists.length < 5)
         {
