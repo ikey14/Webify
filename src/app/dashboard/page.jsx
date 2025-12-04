@@ -11,6 +11,7 @@ import PlaylistDisplay from '@/components/PlaylistDisplay';
 export default function Home() {
   // const router = useRouter();
   const [tracks, setTracks] = useState([])
+  const [preferences, setPreferences] = useState({});
 
   // useEffect(() => {
   //   // Si ya está autenticado, redirigir al dashboard
@@ -23,11 +24,15 @@ export default function Home() {
   //   window.location.href = getSpotifyAuthUrl();
   // };
 
+    useEffect(() => {
+        console.log(preferences);
+    }, [preferences]);
+
   return (<div className = "justify-center flex flex-col min-h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <Header hasLogout = {true} />
     <div className = "flex flex-1 w-full row-auto">
       <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} />
-      <WidgetContainer tracks = {tracks} setTracks = {setTracks} />
+      <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
     </div>
 
   </div>);

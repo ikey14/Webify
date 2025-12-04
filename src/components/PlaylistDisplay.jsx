@@ -7,7 +7,7 @@ import { getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
 
-export default function PlaylistDisplay({ tracks, setTracks })
+export default function PlaylistDisplay({ tracks, setTracks, preferences, generatePlayList })
 {
     let limit = 10;
     //0 if no playlist selected, 1 if there is a playlist selected
@@ -58,7 +58,7 @@ export default function PlaylistDisplay({ tracks, setTracks })
                 selectPlaylist = {handlePlaylistSelect}
                 id = {playlist.id}
                 key = {playlist.id}
-                />
+            />
         )}
 
         {hasPlaylist && <div className = "flex flex-col">
@@ -66,6 +66,10 @@ export default function PlaylistDisplay({ tracks, setTracks })
                 <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl m-3 max-h-50 max-w-50" />
                 <h1 className = "m-1">{currPlayList.name}</h1>
                 <p className = "m-1">ID: {currPlayList.id}</p>
+                <button 
+                    onClick = {() => generatePlayList()} 
+                    className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer"
+                >GENERATE</button>
             </div>
 
             <div className = "m-3 flex flex-col">

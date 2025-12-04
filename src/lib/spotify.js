@@ -81,11 +81,20 @@ export async function spotifyRequest(url)
 
   if (response.status === 401) 
   {
-    // TODO: CREATE refreshAccessToken() in it's corresponding file
+    const newToken = localStorage.getItem("spotify_refresh_token");
+    
+    if(newToken)
+    {
+      const response = await fetch(url, {headers: { 'Authorization': `Bearer ${token}` }});
+      if (!response.ok) 
+      {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
 
-    // Token expirado, refrescar
-    // const newToken = await refreshAccessToken();
-    // Reintentar petición
+      return(response.json);
+    }
+
+
   }
 
   if (!response.ok) 

@@ -25,10 +25,10 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 
 
-export default function ArtistWidget()
+export default function ArtistWidget({ preferences, setPreferences })
 {
     // let emptySpaces = "";
-    let limit = 15;
+    let limit = 10;
     let privSelectedArtists = [];
     const [inputArtists, setInputArtists] = useState("");
     const [hasArtists, setHasArtists] = useState(false);
@@ -37,7 +37,17 @@ export default function ArtistWidget()
 
     async function loadArtists(userInput) 
     {
-        const data = await getArtists(userInput, limit);
+        let data;
+
+        if(userInput && userInput != " ")
+        {
+            data = await getArtists(userInput, limit);
+        }
+        else
+        {
+            return;
+        }
+
         if(data.artists.items)
         {
             setArtists(data.artists.items); 
@@ -55,14 +65,7 @@ export default function ArtistWidget()
 
         if(!isInList && selectedArtists.length < 5)
         {
-            // console.log("(ArtistWidget) privSelectArtists state 1: " + privSelectedArtists);
-            privSelectedArtists = selectedArtists;
-            // console.log("(ArtistWidget) privSelectedArtists state 2: " + privSelectedArtists);
-            console.log(selectedArtists);
-            privSelectedArtists.push({id: id, name: name})
-            // console.log("(ArtistWidget) privSelectedArtists statee 3: " + privSelectedArtists);
-            setSelectedArtists(privSelectedArtists);
-            // console.log("(ArtistWidget) hanldeSelect complete");
+            setSelectedArtists([...selectedArtists, {id: id, name: name}]);
         }
         else
         {
@@ -76,21 +79,19 @@ export default function ArtistWidget()
 
     useEffect(() => {
         console.log(inputArtists);
-        const getData = setTimeout(() => {loadArtists(inputArtists)}, 1500);
+        const getData = setTimeout(() => {loadArtists(inputArtists)}, 750);
         return () => clearTimeout(getData);
     }, [inputArtists]);
 
     useEffect(() => {
-        console.log("(Artist Widget) SELECTED ARTIST USEFFECT");
+        // console.log("(Artist Widget) SELECTED ARTIST USEFFECT");
         console.log(selectedArtists);
+        setPreferences(prev => ({...prev, artists: selectedArtists}));
     }, [selectedArtists]);
 
-    // const { register, formState: { errors }, handleSubmit } = useForm();
-    function handleSubmit(artistInput)
+    function handleSubmit(e)
     {
         e.preventDefault();
-        console.log(artistInput);
-        // loadArtists(artistInput);
     }
     
     function handleChange(e)
