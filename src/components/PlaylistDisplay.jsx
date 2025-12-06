@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 import { createPlaylist, getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
@@ -16,12 +17,30 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     const [playlists, setPlayLists] = useState([]);
     //Stores current playlist's ID
     const [currPlayList, setCurrPlayList] = useState({});
+    //To show new playlist creatin screen
+    const [showNewPL, setShowNewPL] = useState(false);
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
-    async function newPlaylist()
+    async function newPlaylist(data)
     {
-        const data = createPlaylist("test", "testing newPlaylist() function", false);
-        await handlePlaylistSelect(data.id);
+        // console.log(data)
+        const newPL = await createPlaylist(data.name, data.description, data.public);
+        // console.log(newPL);
+        setShowNewPL(false);
+        // await handlePlaylistSelect(newPL.id);
+
+        setCurrPlayList({
+            id: newPL.id,
+            name: newPL.name,
+            imgSrc: "noPlaylistImage.jpg",
+            description: newPL.description,
+            trackItems: newPL.tracks?.items
+        })
+
+        setHasPlaylist(true);
     }
+
+    // const newPlaylist = data => console.log(data);
 
     async function handlePlaylistSelect(id)
     {
@@ -30,6 +49,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             id: data.id,
             name: data.name,
             imgSrc: data.images[0]?.url,
+            description: data.description,
             trackItems: data.tracks?.items
         })
 
@@ -45,20 +65,20 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
 
     useEffect(() => {
         loadPlaylists();
-        console.log(playlists);
+        // console.log(playlists);
     }, []);
 
     useEffect(() => {
-        console.log(playlists);
+        // console.log(playlists);
     }, [playlists]);
 
     useEffect(() => {
-        console.log(currPlayList);
+        // console.log(currPlayList);
         // setHasPlaylist(1);
     }, [currPlayList]);
 
     return(<div className = "flex flex-1 flex-col border-2 rounded-xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
-        {!hasPlaylist && playlists.map(playlist => 
+        {!hasPlaylist && !showNewPL && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
                 imgSrc = {playlist.images[0]?.url}
                 selectPlaylist = {handlePlaylistSelect}
@@ -67,10 +87,41 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             />
         )}
 
-        {!hasPlaylist && <div>
+        {!hasPlaylist && !showNewPL && <div>
             
-            <button onClick = {() => newPlaylist()} className = "border-2 rounded-xl p-2 m-2">NEW</button>
+            <button onClick = {() => setShowNewPL(true)} className = "border-2 rounded-xl p-2 m-2 hover:cursor-pointer">NEW</button>
 
+        </div>}
+
+        {showNewPL && <div>
+            <form onSubmit={handleSubmit(newPlaylist)}>
+            <div>
+                <input 
+                    {...register('name', { required: true, maxLength: 40 })} 
+                    className = "border-2 rounded-xl m-2"
+                    placeholder = ' Name'
+                />
+                {errors.name?.type === 'required' && "Playlist name is required"}
+                {errors.name?.type === 'maxLength' && "Playlist name must be less than 40 characters."}
+            </div>
+            <div className = "max-h-70 h-full">
+                <input 
+                    {...register('description', { maxLength: 300 })} 
+                    className = "border-2 rounded-xl m-2"
+                    placeholder = ' Description'
+                />
+                {errors.description?.type === 'maxLength' && "Playlist description must be less than 300 characters."}
+            </div>
+            <div>
+                <label className = "m-2">Public</label>
+                <input 
+                    {...register('public', { required: false })} 
+                    className = "border-2 rounded-xl m-2"
+                    type = "checkbox"
+                />
+            </div>
+            <input type = "submit" className = "border-2 rounded-xl m-2 p-1 hover:cursor-pointer"/>
+            </form>
         </div>}
 
         {hasPlaylist && <div className = "flex flex-col">
@@ -78,8 +129,9 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl m-3 max-h-50 max-w-50" />
                 <h1 className = "m-1">{currPlayList.name}</h1>
                 <p className = "m-1">ID: {currPlayList.id}</p>
+                <p className = "m-1">{currPlayList.description}</p>
                 <button 
-                    onClick = {() => generatePlayList()} 
+                    onClick = {() => generatePlayList(currPlayList.id)} 
                     className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer"
                 >GENERATE</button>
             </div>

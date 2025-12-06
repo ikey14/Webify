@@ -97,7 +97,7 @@ export default function TrackWidget({ preferences, setPreferences })
         setInputTracks(e.target.value);
     }
 
-    return (<div className = "border-2 border-black m-2 p-2 rounded-2xl min-h-1/6 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3">
+    return (<div className = "border-2 border-white m-2 p-2 rounded-2xl min-h-1/6 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3">
         <div className = "flex flex-row justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>

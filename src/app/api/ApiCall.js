@@ -1,4 +1,4 @@
-import { spotifyNewPlaylistRequest, spotifyRequest } from '@/lib/spotify';
+import { spotifyAddToPlaylistRequest, spotifyNewPlaylistRequest, spotifyRequest } from '@/lib/spotify';
 
 export async function getUserPlaylists(limit)
 {
@@ -24,6 +24,13 @@ export async function createPlaylist(name, description, isPublic)
   const body = {name: name, description: description, public: isPublic};
   const newPlaylist = await spotifyNewPlaylistRequest(body);
   return newPlaylist;
+}
+
+export async function addToPlaylist(id, newTracks)
+{
+  const newTrackIDs = newTracks.map(track => "spotify:track:" + track.id.toString());
+  const snapshot = await spotifyAddToPlaylistRequest(id, newTrackIDs);
+  return snapshot;
 }
 
 export async function getArtists(inputName, limit)

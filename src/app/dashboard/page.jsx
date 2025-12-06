@@ -8,39 +8,28 @@ import Header from '@/components/Header';
 import WidgetContainer from '@/components/WidgetContainer';
 import PlaylistDisplay from '@/components/PlaylistDisplay';
 import { generatePlaylist } from '@/lib/spotify';
+import { addToPlaylist } from '../api/ApiCall';
 
 export default function Home() {
   // const router = useRouter();
   const [tracks, setTracks] = useState([])
   const [preferences, setPreferences] = useState({});
 
-  // useEffect(() => {
-  //   // Si ya está autenticado, redirigir al dashboard
-  //   if (isAuthenticated()) {
-  //     router.push('/dashboard');
-  //   }
-  // }, [router]);
-
-  // const handleLogin = () => {
-  //   window.location.href = getSpotifyAuthUrl();
-  // };
-
-  async function generateNewPlaylist()
+  async function generateNewPlaylist(id)
   {
     // preferences.artists? console.log(preferences.artists) : setPreferences(prev => ({...prev, artists: []}));
     // preferences.genres? console.log(preferences.genres) : setPreferences(prev => ({...prev, genres: []}));
     // preferences.decades? console.log(preferences.decades) : setPreferences(prev => ({...prev, decades: []}));
 
-    console.log(preferences);
-
     const newTracks = await generatePlaylist(preferences);
     console.log(newTracks);
-    return newTracks;
+    // return newTracks;
+    await addToPlaylist(id, newTracks);
   }
 
-    useEffect(() => {
-        console.log(preferences);
-    }, [preferences]);
+  useEffect(() => {
+      // console.log(preferences);
+  }, [preferences]);
 
   return (<div className = "justify-center flex flex-col min-h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <Header hasLogout = {true} />
