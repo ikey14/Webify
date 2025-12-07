@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function TrackCard({id, name, imgSrc, artist})
+export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTrack})
 {
     useEffect(() => {
         console.log(imgSrc);
@@ -25,10 +25,27 @@ export default function TrackCard({id, name, imgSrc, artist})
             />
         </div>}
 
-        <div className = "flex flex-col justify-center items-start">
-            <h1 className = "m-1">{name}</h1>
-            <p className = "m-1 text-gray-600">{artist}</p>
+        <div className = "flex flex-1 justify-between">
+            <div className = "flex flex-col justify-center items-start">
+                <h1 className = "m-1">{name}</h1>
+                <p className = "m-1 text-gray-600">{artist}</p>
+            </div>
+
+            <div className = "flex justify-center items-center">
+                <button 
+                    onClick = {() => favTrack(id)} 
+                    className = "border-2 rounded-xl p-1 m-1 hover:cursor-pointer hover:bg-linear-to-br from-pink-500/25 via-pink-500/50 to-pink-500"
+                >
+                ❤️
+                </button>
+
+                <button 
+                    onClick = {() => removeTrack(id)} 
+                    className = "border-2 rounded-xl p-1 m-1 hover:cursor-pointer hover:bg-linear-to-br from-white/0 via-black/0 to-red-600"
+                >
+                ❌
+                </button>
+            </div>
         </div>
-        {/* <button onClick = {() => selectPlaylist(id)} className = "border-2 hover:cursor-pointer pl-1 pr-1 max-h-10">Select</button> */}
     </div>)
 }

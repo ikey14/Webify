@@ -110,7 +110,7 @@ export default function ArtistWidget({ preferences, setPreferences })
             </div>
             {/* <input type="submit" /> */}
             </form>
-            <button onClick = {() => setSelectedArtists([])} className = "border rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
+            <button onClick = {() => setSelectedArtists([])} className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
         </div>
 
         {selectedArtists.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">

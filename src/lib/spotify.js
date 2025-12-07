@@ -330,7 +330,8 @@ export async function spotifyRemoveFromPlaylistRequest(id, oldTracks)
   console.log(oldTracks);
   const url = `https://api.spotify.com/v1/playlists/${id}/tracks`;
   const token = getAccessToken();
-  const trackObjects = oldTracks.map(uri => ({ uri }));
+  const trackObjects = Array.isArray(oldTracks)? oldTracks.map(uri => ({ uri })) : [{"uri": oldTracks}];
+  // const trackObjects = oldTracks.map(uri => ({ uri }));
   // const stringNewTracks = newTracks.toString();
   // console.log(stringNewTracks);
   

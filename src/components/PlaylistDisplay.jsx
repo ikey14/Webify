@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { createPlaylist, getPlaylistByID, getUserPlaylists } from '@/app/api/ApiCall'
+import { createPlaylist, getPlaylistByID, getTrackByID, getUserPlaylists, removeFromPlaylist } from '@/app/api/ApiCall'
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
 
@@ -21,6 +21,29 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     const [showNewPL, setShowNewPL] = useState(false);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    async function toggleFav(id)
+    {
+        const track = await getTrackByID(id); 
+        const favorites = JSON.parse(localStorage.getItem('favorite_tracks') || '[]')        
+        const isFavorite = favorites.find(f => f.id === track.id)
+
+        if (isFavorite) {
+            const updated = favorites.filter(f => f.id !== track.id)
+            localStorage.setItem('favorite_tracks', JSON.stringify(updated))
+        } else {
+            favorites.push(track)
+            localStorage.setItem('favorite_tracks', JSON.stringify(favorites))
+        }
+    }
+
+    async function removeTrack(id)
+    {
+        // const oldTrackIDs = oldTracks.map(item => "spotify:track:" + item.track.id.toString());
+        const oldTrack = "spotify:track:" + id.toString();
+        await removeFromPlaylist(currPlayList.id, oldTrack);
+        await handlePlaylistSelect(currPlayList.id);
+    }
+    
     async function handleGeneratePlayList(id, oldTracks)
     {
         await generatePlayList(id, oldTracks);
@@ -40,7 +63,6 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         const newPL = await createPlaylist(data.name, data.description, data.public);
         // console.log(newPL);
         setShowNewPL(false);
-        // await handlePlaylistSelect(newPL.id);
 
         setCurrPlayList({
             id: newPL.id,
@@ -52,8 +74,6 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
 
         setHasPlaylist(true);
     }
-
-    // const newPlaylist = data => console.log(data);
 
     async function handlePlaylistSelect(id)
     {
@@ -87,7 +107,6 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
 
     useEffect(() => {
         console.log(currPlayList);
-        // setHasPlaylist(1);
     }, [currPlayList]);
 
     return(<div className = "flex flex-1 flex-col border-2 rounded-xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
@@ -176,66 +195,11 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                         name = {item.track.name}
                         imgSrc = {item.track.album?.images[0]?.url}
                         artist = {item.track.artists?.[0]?.name}
+                        favTrack = {toggleFav}
+                        removeTrack = {removeTrack}
                     />
                 )}
             </div>
         </div>}
     </div>)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// Playlist Management Features (OBLIGATORIO)
-// ✅ Funcionalidades Requeridas
-// Eliminar Tracks Individuales
-
-// // Permitir remover canciones específicas de la playlist
-// const removeTrack = (trackId) => {
-//   setPlaylist(playlist.filter(track => track.id !== trackId))
-// }
-// Marcar Tracks como Favoritos ⭐
-
-// // Guardar favoritos en localStorage
-// const toggleFavorite = (track) => {
-//   const favorites = JSON.parse(localStorage.getItem('favorite_tracks') || '[]')
-//   const isFavorite = favorites.find(f => f.id === track.id)
-
-//   if (isFavorite) {
-//     const updated = favorites.filter(f => f.id !== track.id)
-//     localStorage.setItem('favorite_tracks', JSON.stringify(updated))
-//   } else {
-//     favorites.push(track)
-//     localStorage.setItem('favorite_tracks', JSON.stringify(favorites))
-//   }
-// }
-// Refrescar Playlist Generada
-
-// Botón para regenerar playlist con las mismas preferencias
-// Obtener nuevas recomendaciones
-// Añadir Más Canciones
-
-// Permitir ampliar la playlist existente
-// Mantener canciones actuales y añadir nuevas
-// 🎯 Funcionalidades Opcionales
-// Drag & Drop Reordering (Opcional)
-
-// Reordenar canciones arrastrando
-// Usar librerías como react-beautiful-dnd
-// Guardar en Spotify (Opcional)
-
-// POST /users/{user_id}/playlists
-// POST /playlists/{playlist_id}/tracks
-// Sincronizar con cuenta de Spotify
-// Considerar Favoritos en Generación (Opcional)
-
-// Usar canciones favoritas como seeds
-// Ponderación según preferencias guardadas

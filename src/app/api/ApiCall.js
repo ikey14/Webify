@@ -35,7 +35,7 @@ export async function addToPlaylist(id, newTracks)
 
 export async function removeFromPlaylist(id, oldTracks)
 {
-  const oldTrackIDs = oldTracks.map(item => "spotify:track:" + item.track.id.toString());
+  const oldTrackIDs = Array.isArray(oldTracks)? oldTracks.map(item => 'spotify:track:' + item.track.id.toString()) : oldTracks;
   console.log(id);
   console.log(oldTrackIDs);
   const snapshot = await spotifyRemoveFromPlaylistRequest(id, oldTrackIDs);
@@ -45,7 +45,7 @@ export async function removeFromPlaylist(id, oldTracks)
 export async function getArtists(inputName, limit)
 {
   const url = `https://api.spotify.com/v1/search?type=artist&q=${encodeURIComponent(inputName)}&limit=${limit}`;
-  console.log("Getting all artists with: " + inputName)
+  console.log("Getting all artists with: " + inputName);
   //llamar a spotifyfetch manejo de errores
   const artists = await spotifyRequest(url);
   return artists;
@@ -54,8 +54,17 @@ export async function getArtists(inputName, limit)
 export async function getTracks(inputName, limit)
 {
   const url = `https://api.spotify.com/v1/search?type=track&q=${encodeURIComponent(inputName)}&limit=${limit}`;
-  console.log("Getting all tracks with: " + inputName)
+  console.log("Getting all tracks with: " + inputName);
   //llamar a spotifyfetch manejo de errores
-  const artists = await spotifyRequest(url);
-  return artists;
+  const tracks = await spotifyRequest(url);
+  return tracks;
+}
+
+export async function getTrackByID(id)
+{
+  const url = `https://api.spotify.com/v1/tracks/${id}`;
+  // console.log("Getting all tracks with: " + inputName);
+  //llamar a spotifyfetch manejo de errores
+  const track = await spotifyRequest(url);
+  return track;
 }

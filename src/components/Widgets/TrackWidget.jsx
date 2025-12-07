@@ -29,6 +29,13 @@ export default function TrackWidget({ preferences, setPreferences })
     const [hasTracks, setHasTracks] = useState(false);
     const [tracks, setTracks] = useState({});
     const [selectedTracks, setSelectedTracks] = useState([]);
+    const [showFavs, setShowFavs] = useState(false);
+    const [favTracks, setFavTracks] = useState({})
+
+    function toggleShowFavs()
+    {
+        setShowFavs(!showFavs);
+    }
 
     async function loadTracks(userInput) 
     {
@@ -75,6 +82,13 @@ export default function TrackWidget({ preferences, setPreferences })
     }, [tracks]);
 
     useEffect(() => {
+        console.log(favTracks);
+        setFavTracks(JSON.parse(localStorage.getItem('favorite_tracks') || '[]'));
+    }, [showFavs]);
+
+    
+
+    useEffect(() => {
         console.log(inputTracks);
         const getData = setTimeout(() => {loadTracks(inputTracks)}, 750);
         return () => clearTimeout(getData);
@@ -111,15 +125,40 @@ export default function TrackWidget({ preferences, setPreferences })
             </div>
             {/* <input type="submit" /> */}
             </form>
-            <button onClick = {() => setSelectedTracks([])} className = "border rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
+            <div className = "flex flex-row">
+                <button onClick = {() => toggleShowFavs()} className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer">❤️</button>
+                <button onClick = {() => setSelectedTracks([])} className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer">❌</button>
+            </div>
         </div>
 
         {selectedTracks.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
             {selectedTracks.map(track => <p key = {track.id} className = "border rounded-xl p-1 m-1 h-fit">{track.name}</p>)} 
         </div>}
 
-        {hasTracks && <div className = "max-h-10/12">
+        {hasTracks && !showFavs && <div className = "max-h-10/12">
             {tracks.map(track => <div key = {track.id} className = "flex flex-row">
+                <div className = "p-1 m-3 rounded-xl max-h-1/12 max-w-1/5 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+                    <img 
+                        src = {track.album?.images[0]?.url}
+                        onClick = {() => handleSelect(track.id, track.name)}
+                        className = "rounded-xl"
+                    />
+                </div>
+                <div className = "flex flex-col items-start justify-center">
+                    <div>
+                        <h1>{track.name}</h1>
+                    </div>
+                    <div>
+                        <p className = "text-gray-600">{track.artists[0]?.name}</p>
+                    </div>
+                </div>
+            </div>)}
+        </div>}
+
+        
+
+        {showFavs && <div className = "max-h-10/12">
+            {favTracks.map(track => <div key = {track.id} className = "flex flex-row">
                 <div className = "p-1 m-3 rounded-xl max-h-1/12 max-w-1/5 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
