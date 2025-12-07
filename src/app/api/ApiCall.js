@@ -1,4 +1,4 @@
-import { spotifyAddToPlaylistRequest, spotifyNewPlaylistRequest, spotifyRequest } from '@/lib/spotify';
+import { spotifyAddToPlaylistRequest, spotifyNewPlaylistRequest, spotifyRequest, spotifyRemoveFromPlaylistRequest } from '@/lib/spotify';
 
 export async function getUserPlaylists(limit)
 {
@@ -30,6 +30,15 @@ export async function addToPlaylist(id, newTracks)
 {
   const newTrackIDs = newTracks.map(track => "spotify:track:" + track.id.toString());
   const snapshot = await spotifyAddToPlaylistRequest(id, newTrackIDs);
+  return snapshot;
+}
+
+export async function removeFromPlaylist(id, oldTracks)
+{
+  const oldTrackIDs = oldTracks.map(item => "spotify:track:" + item.track.id.toString());
+  console.log(id);
+  console.log(oldTrackIDs);
+  const snapshot = await spotifyRemoveFromPlaylistRequest(id, oldTrackIDs);
   return snapshot;
 }
 

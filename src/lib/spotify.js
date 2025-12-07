@@ -216,13 +216,11 @@ export async function spotifyAddToPlaylistRequest(id, newTracks)
       return;
     }
   }
-  // let jaja = ["uno", "dos", "tres", "cuatro"];
-  // jaja.toString();
 
   const response = await fetch(url, 
   {method: "POST", 
     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: newTracks
+    body: JSON.stringify({"uris": newTracks, "position": 0})
   });
 
   if (response.status === 401) 
@@ -235,7 +233,67 @@ export async function spotifyAddToPlaylistRequest(id, newTracks)
       const response = await fetch(url, 
       {method: "POST", 
         headers: { 'Authorization': `Bearer ${newToken}`, 'Content-Type': 'application/json' },
-        body: newTracks
+        body: JSON.stringify({"uris": newTracks, "position": 0})
+      });
+      if (!response.ok) 
+      {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+
+      return(response.json());
+    }
+  }
+
+  if (!response.ok) 
+  {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+
+
+export async function spotifyRemoveFromPlaylistRequest(id, oldTracks)
+{
+  console.log(oldTracks);
+  const url = `https://api.spotify.com/v1/playlists/${id}/tracks`;
+  const token = getAccessToken();
+  const trackObjects = oldTracks.map(uri => ({ uri }));
+  // const stringNewTracks = newTracks.toString();
+  // console.log(stringNewTracks);
+  
+  if (!token) 
+  {
+    // Intentar refrescar token
+    // const newToken = await refreshAccessToken();
+    const newToken = getAccessToken();
+    // const newToken = localStorage.getItem("spotify_refresh_token");
+    if (!newToken) 
+    {
+      // Redirigir a login
+      window.location.href = '/';
+      return;
+    }
+  }
+
+  const response = await fetch(url, 
+  {method: "DELETE", 
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({"tracks": trackObjects})
+  });
+
+  if (response.status === 401) 
+  {
+    const newToken = getAccessToken();
+    // const newToken = localStorage.getItem("spotify_refresh_token");
+    
+    if(newToken)
+    {
+      const response = await fetch(url, 
+      {method: "DELETE", 
+        headers: { 'Authorization': `Bearer ${newToken}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({"tracks": trackObjects})
       });
       if (!response.ok) 
       {

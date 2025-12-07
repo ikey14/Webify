@@ -8,19 +8,16 @@ import Header from '@/components/Header';
 import WidgetContainer from '@/components/WidgetContainer';
 import PlaylistDisplay from '@/components/PlaylistDisplay';
 import { generatePlaylist } from '@/lib/spotify';
-import { addToPlaylist } from '../api/ApiCall';
+import { addToPlaylist, removeFromPlaylist } from '../api/ApiCall';
 
 export default function Home() {
   // const router = useRouter();
   const [tracks, setTracks] = useState([])
   const [preferences, setPreferences] = useState({});
 
-  async function generateNewPlaylist(id)
+  async function generateNewPlaylist(id, oldTracks)
   {
-    // preferences.artists? console.log(preferences.artists) : setPreferences(prev => ({...prev, artists: []}));
-    // preferences.genres? console.log(preferences.genres) : setPreferences(prev => ({...prev, genres: []}));
-    // preferences.decades? console.log(preferences.decades) : setPreferences(prev => ({...prev, decades: []}));
-
+    oldTracks.length > 0? await removeFromPlaylist(id, oldTracks) : console.log("No tracks in this playlist")
     const newTracks = await generatePlaylist(preferences);
     console.log(newTracks);
     // return newTracks;

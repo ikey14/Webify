@@ -73,7 +73,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     }, [playlists]);
 
     useEffect(() => {
-        // console.log(currPlayList);
+        console.log(currPlayList);
         // setHasPlaylist(1);
     }, [currPlayList]);
 
@@ -125,13 +125,21 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         </div>}
 
         {hasPlaylist && <div className = "flex flex-col">
+            <div>
+                <button 
+                    onClick = {() => setHasPlaylist(false)} 
+                    className = "text-3xl border-2 border-red-600 rounded-xl m-2 p-1 hover:cursor-pointer"
+                >
+                ⬅
+                </button>
+            </div>
             <div className = "flex flex-col items-center justify-center">
                 <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl m-3 max-h-50 max-w-50" />
                 <h1 className = "m-1">{currPlayList.name}</h1>
                 <p className = "m-1">ID: {currPlayList.id}</p>
                 <p className = "m-1">{currPlayList.description}</p>
                 <button 
-                    onClick = {() => generatePlayList(currPlayList.id)} 
+                    onClick = {() => generatePlayList(currPlayList.id, currPlayList.trackItems)} 
                     className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer"
                 >GENERATE</button>
             </div>
