@@ -42,12 +42,18 @@ export default function Home() {
       // console.log(preferences);
   }, [preferences]);
 
-  return (<div className = "justify-center flex flex-col min-h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
-    <Header hasLogout = {true} />
-    <div className = "flex flex-1 w-full row-auto">
-      <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
-      <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
+  return (<div className="min-h-screen overflow-x-hidden bg-fixed bg-cover bg-center blue-Black-White-GradBR">
+    <div className = "justify-center flex flex-col">
+      <Header hasLogout = {true} />
+      <div className = "flex flex-1 flex-col md:flex-row w-full overflow-x-hidden gap-x-2">
+        <div className="w-full md:w-1/3 max-w-full mx-3 my-1">
+          <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
+        </div>
+        <div className="w-full md:w-2/3 max-w-full mx-3 my-1">
+          <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
+        </div>
+        
+      </div>
     </div>
-
   </div>);
 }

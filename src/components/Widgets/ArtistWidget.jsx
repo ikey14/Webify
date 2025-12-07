@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 export default function ArtistWidget({ preferences, setPreferences })
 {
     // let emptySpaces = "";
-    let limit = 10;
+    let limit = 8;
     // let privSelectedArtists = [];
     const [inputArtists, setInputArtists] = useState("");
     const [hasArtists, setHasArtists] = useState(false);
@@ -121,12 +121,12 @@ export default function ArtistWidget({ preferences, setPreferences })
         </div>}
 
 
-        {hasArtists && <div className = "max-h-150 overflow-y-auto mt-1">
+        {hasArtists && <div className = "max-h-155 overflow-y-auto mt-1">
             {artists.map(artist => <div key = {artist.id} className = "flex flex-row">
                 <img
                     src = {artist.images[0]?.url}
                     onClick = {() => handleSelect(artist.id, artist.name)}
-                    className = "border-4 border-red-600 rounded-xl m-3 max-h-24 max-w-24 hover:cursor-pointer"
+                    className = "border-4 border-red-600 rounded-xl m-3 max-h-20 max-w-20 hover:cursor-pointer"
                 />
                 <div className = "flex flex-col items-start justify-center">
                     <h1>{artist.name}</h1>

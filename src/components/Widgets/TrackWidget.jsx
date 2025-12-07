@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 export default function TrackWidget({ preferences, setPreferences })
 {
     // let emptySpaces = "";
-    let limit = 10;
+    let limit = 8;
     // let privSelectedTracks = [];
     const [inputTracks, setInputTracks] = useState("");
     const [hasTracks, setHasTracks] = useState(false);
@@ -137,9 +137,9 @@ export default function TrackWidget({ preferences, setPreferences })
             {selectedTracks.map(track => <p key = {track.id} className = "border rounded-xl p-1 m-1 h-fit">{track.name}</p>)} 
         </div>}
 
-        {hasTracks && !showFavs && <div className = "max-h-150 overflow-y-auto mt-1">
-            {tracks.map(track => <div key = {track.id} className = "flex xl:flex-row flex-col">
-                <div className = "p-1 m-3 rounded-xl max-h-24 max-w-24 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+        {hasTracks && !showFavs && <div className = "max-h-155 overflow-y-auto mt-1">
+            {tracks.map(track => <div key = {track.id} className = "flex lg:flex-row flex-col">
+                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}
@@ -159,9 +159,9 @@ export default function TrackWidget({ preferences, setPreferences })
 
         
 
-        {showFavs && <div className = "max-h-150 overflow-y-auto mt-1">
-            {favTracks.map(track => <div key = {track.id} className = "flex xl:flex-row flex-col">
-                <div className = "p-1 m-3 rounded-xl max-h-24 max-w-24 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+        {showFavs && <div className = "max-h-155 overflow-y-auto mt-1">
+            {favTracks.map(track => <div key = {track.id} className = "flex lg:flex-row flex-col">
+                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}

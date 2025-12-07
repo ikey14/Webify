@@ -109,7 +109,10 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         console.log(currPlayList);
     }, [currPlayList]);
 
-    return(<div className = "flex flex-1 flex-col border-2 rounded-xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
+
+    // flex flex-1 flex-col border-2 rounded-xl w-full min-w-1/3 overflow-hidden md:justify-center mb-auto
+
+    return(<div className = "flex flex-col border-2 rounded-xl w-full h-full overflow-hidden">
         {!hasPlaylist && !showNewPL && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
                 imgSrc = {playlist.images?.[0]?.url}
@@ -160,15 +163,15 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             <div>
                 <button 
                     onClick = {() => setHasPlaylist(false)} 
-                    className = "text-3xl border-2 border-red-600 rounded-xl m-2 p-1 hover:cursor-pointer hover:bg-linear-to-br from-red-600 via-black/0 to-white/0"
+                    className = "text-3xl border-2 border-red-600 rounded-xl mt-1 ml-1 p-1 hover:cursor-pointer hover:bg-linear-to-br from-red-600 via-black/0 to-white/0"
                 >
                 ⬅
                 </button>
             </div>
             <div className = "flex flex-col items-center justify-center">
-                <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl m-3 max-h-50 max-w-50" />
+                <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl my-2 max-h-42 max-w-42" />
                 <h1 className = "m-1">{currPlayList.name}</h1>
-                <p className = "m-1">ID: {currPlayList.id}</p>
+                {/* <p className = "m-1">ID: {currPlayList.id}</p> */}
                 <p className = "m-1">{currPlayList.description}</p>
                 <div className = "flex flex-row">
                     <button 
@@ -187,7 +190,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 </div>
             </div>
 
-            <div className = "m-3 flex flex-col">
+            <div className = "m-3 flex flex-col max-h-82 overflow-y-auto mt-1">
                 {currPlayList.trackItems?.map(item =>
                     <TrackCard
                         id = {item.track.id}

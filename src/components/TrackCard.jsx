@@ -10,18 +10,18 @@ export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTra
         // setHasPlaylist(1);
     }, []);
 
-    return(<div className = "flex">
-        {imgSrc != undefined && <div className = "m-3 max-h-20 max-w-20 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+    return(<div className = "flex xl:flex-row flex-col items-center">
+        {imgSrc != undefined && <div className = "m-3 max-h-22 max-w-22 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
             <img 
                 src = {imgSrc} 
-                className = "rounded-xl"
+                className = "rounded-xl max-h-20 max-w-20 "
             />
         </div>}
 
-        {imgSrc == undefined && <div className = "m-3 max-h-20 max-w-20 p-0.5 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+        {imgSrc == undefined && <div className = "m-3 max-h-22 max-w-22 p-0.5 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
             <img 
                 src = "noPlaylistImage.jpg"
-                className = "rounded-xl"
+                className = "rounded-xl max-h-20 max-w-20"
             />
         </div>}
 
