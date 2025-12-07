@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function TrackCard({id, name, imgSrc})
+export default function TrackCard({id, name, imgSrc, artist})
 {
     useEffect(() => {
         console.log(imgSrc);
@@ -25,8 +25,9 @@ export default function TrackCard({id, name, imgSrc})
             />
         </div>}
 
-        <div className = "flex justify-center items-center">
-            <h1 className = "p-2">{name}</h1>
+        <div className = "flex flex-col justify-center items-start">
+            <h1 className = "m-1">{name}</h1>
+            <p className = "m-1 text-gray-600">{artist}</p>
         </div>
         {/* <button onClick = {() => selectPlaylist(id)} className = "border-2 hover:cursor-pointer pl-1 pr-1 max-h-10">Select</button> */}
     </div>)

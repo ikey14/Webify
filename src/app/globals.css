@@ -33,6 +33,11 @@
   {
     @apply bg-linear-to-br from-red-600 via-black to-white;
   }
+
+  .redCorner-GradBR
+  {
+    @apply bg-linear-to-br from-blue-800/0 via-black/0 to-red-600;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

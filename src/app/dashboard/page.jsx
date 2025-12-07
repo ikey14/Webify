@@ -20,8 +20,22 @@ export default function Home() {
     oldTracks.length > 0? await removeFromPlaylist(id, oldTracks) : console.log("No tracks in this playlist")
     const newTracks = await generatePlaylist(preferences);
     console.log(newTracks);
+    console.log(oldTracks);
     // return newTracks;
     await addToPlaylist(id, newTracks);
+  }
+
+  async function updatePlaylist(id, currentTracks)
+  {
+    const newTracks = await generatePlaylist(preferences);
+    console.log(newTracks);
+
+    //newTracks: track.id
+    //currTracks: item.track.id
+    const finalTracks = newTracks.filter(newTrack => !currentTracks.some(currTrack => currTrack.track.id === newTrack.id));
+
+    // return newTracks;
+    await addToPlaylist(id, finalTracks);
   }
 
   useEffect(() => {
@@ -31,7 +45,7 @@ export default function Home() {
   return (<div className = "justify-center flex flex-col min-h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <Header hasLogout = {true} />
     <div className = "flex flex-1 w-full row-auto">
-      <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist}/>
+      <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
       <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
     </div>
 

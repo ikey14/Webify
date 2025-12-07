@@ -8,7 +8,7 @@ import { createPlaylist, getPlaylistByID, getUserPlaylists } from '@/app/api/Api
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
 
-export default function PlaylistDisplay({ tracks, setTracks, preferences, generatePlayList })
+export default function PlaylistDisplay({ tracks, setTracks, preferences, generatePlayList, updatePlayList })
 {
     let limit = 10;
     //0 if no playlist selected, 1 if there is a playlist selected
@@ -24,6 +24,13 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     async function handleGeneratePlayList(id, oldTracks)
     {
         await generatePlayList(id, oldTracks);
+        await handlePlaylistSelect(id);
+    }
+
+    async function handleUpdatePlayList(id, currTracks)
+    {
+        console.log(currTracks);
+        await updatePlayList(id, currTracks);
         await handlePlaylistSelect(id);
     }
     
@@ -134,7 +141,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             <div>
                 <button 
                     onClick = {() => setHasPlaylist(false)} 
-                    className = "text-3xl border-2 border-red-600 rounded-xl m-2 p-1 hover:cursor-pointer"
+                    className = "text-3xl border-2 border-red-600 rounded-xl m-2 p-1 hover:cursor-pointer hover:bg-linear-to-br from-red-600 via-black/0 to-white/0"
                 >
                 ⬅
                 </button>
@@ -144,10 +151,21 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 <h1 className = "m-1">{currPlayList.name}</h1>
                 <p className = "m-1">ID: {currPlayList.id}</p>
                 <p className = "m-1">{currPlayList.description}</p>
-                <button 
-                    onClick = {() => handleGeneratePlayList(currPlayList.id, currPlayList.trackItems)}
-                    className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer"
-                >GENERATE</button>
+                <div className = "flex flex-row">
+                    <button 
+                        onClick = {() => handleGeneratePlayList(currPlayList.id, currPlayList.trackItems)}
+                        className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer hover:bg-linear-to-br from-blue-800/0 via-black/0 to-red-600"
+                    >
+                    REPLACE
+                    </button>
+
+                    <button 
+                        onClick = {() => handleUpdatePlayList(currPlayList.id, currPlayList.trackItems)}
+                        className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer hover:bg-linear-to-br from-blue-800/0 via-black/0 to-green-600"
+                    >
+                    UPDATE
+                    </button>
+                </div>
             </div>
 
             <div className = "m-3 flex flex-col">
@@ -157,6 +175,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                         key = {item.track.id}
                         name = {item.track.name}
                         imgSrc = {item.track.album?.images[0]?.url}
+                        artist = {item.track.artists?.[0]?.name}
                     />
                 )}
             </div>
