@@ -21,6 +21,12 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     const [showNewPL, setShowNewPL] = useState(false);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    async function handleGeneratePlayList(id, oldTracks)
+    {
+        await generatePlayList(id, oldTracks);
+        await handlePlaylistSelect(id);
+    }
+    
     async function newPlaylist(data)
     {
         // console.log(data)
@@ -48,7 +54,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         setCurrPlayList({
             id: data.id,
             name: data.name,
-            imgSrc: data.images[0]?.url,
+            imgSrc: data.images?.[0]?.url,
             description: data.description,
             trackItems: data.tracks?.items
         })
@@ -66,7 +72,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     useEffect(() => {
         loadPlaylists();
         // console.log(playlists);
-    }, []);
+    }, [hasPlaylist]);
 
     useEffect(() => {
         // console.log(playlists);
@@ -80,7 +86,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     return(<div className = "flex flex-1 flex-col border-2 rounded-xl min-w-1/4 w-full max-w-2/6 mb-auto mr-2 ml-1.5">
         {!hasPlaylist && !showNewPL && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
-                imgSrc = {playlist.images[0]?.url}
+                imgSrc = {playlist.images?.[0]?.url}
                 selectPlaylist = {handlePlaylistSelect}
                 id = {playlist.id}
                 key = {playlist.id}
@@ -139,7 +145,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 <p className = "m-1">ID: {currPlayList.id}</p>
                 <p className = "m-1">{currPlayList.description}</p>
                 <button 
-                    onClick = {() => generatePlayList(currPlayList.id, currPlayList.trackItems)} 
+                    onClick = {() => handleGeneratePlayList(currPlayList.id, currPlayList.trackItems)}
                     className = "p-1 m-1 border-2 border-white rounded-xl hover:cursor-pointer"
                 >GENERATE</button>
             </div>

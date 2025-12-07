@@ -19,6 +19,11 @@
     @apply bg-linear-to-br from-blue-800 via-black to-white;
   }
 
+  .blue-Black-White-GradBR-Darker
+  {
+    @apply bg-linear-to-br from-blue-950 via-black to-gray-600;
+  }
+
   .green-Black-White-GradBR
   {
     @apply bg-linear-to-br from-green-600 via-black to-white;

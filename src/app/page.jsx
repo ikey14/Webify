@@ -19,7 +19,7 @@ export default function Home() {
     window.location.href = getSpotifyAuthUrl();
   };
 
-  return (<div className = "justify-center flex flex-col h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR">
+  return (<div className = "justify-center flex flex-col h-screen bg-fixed bg-cover bg-center blue-Black-White-GradBR-Darker">
     
     <Header hasLogout = {false} />
     
