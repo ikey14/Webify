@@ -111,14 +111,16 @@ export default function TrackWidget({ preferences, setPreferences })
         setInputTracks(e.target.value);
     }
 
-    return (<div className = "border-2 border-white m-2 p-2 rounded-2xl min-h-1/6 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3">
-        <div className = "flex flex-row justify-between items-center mb-1">
+    // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
+
+    return (<div className = "border-2 border-white m-2 p-2 rounded-xl flex flex-col">
+        <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
                 <input 
                     // {...register('track', { required: true, maxLength: 30 })} 
                     placeholder = " Track"
-                    className = "border-2 border-gray-600 rounded-2xl"
+                    className = "border-2 border-gray-600 rounded-xl"
                     onChange = {(e) => handleChange(e)}
                 />
                 {/* {errors.track?.type === 'maxLength' && "track debe tener menos de 30 caracteres"} */}
@@ -135,9 +137,9 @@ export default function TrackWidget({ preferences, setPreferences })
             {selectedTracks.map(track => <p key = {track.id} className = "border rounded-xl p-1 m-1 h-fit">{track.name}</p>)} 
         </div>}
 
-        {hasTracks && !showFavs && <div className = "max-h-10/12">
-            {tracks.map(track => <div key = {track.id} className = "flex flex-row">
-                <div className = "p-1 m-3 rounded-xl max-h-1/12 max-w-1/5 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+        {hasTracks && !showFavs && <div className = "max-h-150 overflow-y-auto mt-1">
+            {tracks.map(track => <div key = {track.id} className = "flex xl:flex-row flex-col">
+                <div className = "p-1 m-3 rounded-xl max-h-24 max-w-24 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}
@@ -157,9 +159,9 @@ export default function TrackWidget({ preferences, setPreferences })
 
         
 
-        {showFavs && <div className = "max-h-10/12">
-            {favTracks.map(track => <div key = {track.id} className = "flex flex-row">
-                <div className = "p-1 m-3 rounded-xl max-h-1/12 max-w-1/5 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+        {showFavs && <div className = "max-h-150 overflow-y-auto mt-1">
+            {favTracks.map(track => <div key = {track.id} className = "flex xl:flex-row flex-col">
+                <div className = "p-1 m-3 rounded-xl max-h-24 max-w-24 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}

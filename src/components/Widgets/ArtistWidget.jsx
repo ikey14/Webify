@@ -96,12 +96,14 @@ export default function ArtistWidget({ preferences, setPreferences })
         setInputArtists(e.target.value);
     }
 
-    return (<div className = "border-2 border-red-600 m-2 p-2 rounded-2xl min-h-1/6 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3">
-        <div className = "flex flex-row justify-between items-center mb-1">
+    // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
+
+    return (<div className = "border-2 border-red-600 m-2 p-2 rounded-xl flex flex-col">
+        <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
-                <input 
-                    // {...register('artist', { required: true, maxLength: 30 })} 
+                <input
+                    // {...register('artist', { required: true, maxLength: 30 })}
                     placeholder = " Artist"
                     className = "border-2 border-gray-600 rounded-2xl"
                     onChange = {(e) => handleChange(e)}
@@ -113,18 +115,20 @@ export default function ArtistWidget({ preferences, setPreferences })
             <button onClick = {() => setSelectedArtists([])} className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
         </div>
 
+
         {selectedArtists.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
-            {selectedArtists.map(artist => <p key = {artist.id} className = "border rounded-xl p-1 m-1 h-fit">{artist.name}</p>)} 
+            {selectedArtists.map(artist => <p key = {artist.id} className = "border rounded-xl p-1 m-1 h-fit">{artist.name}</p>)}
         </div>}
 
-        {hasArtists && <div className = "max-h-10/12">
+
+        {hasArtists && <div className = "max-h-150 overflow-y-auto mt-1">
             {artists.map(artist => <div key = {artist.id} className = "flex flex-row">
-                <img 
+                <img
                     src = {artist.images[0]?.url}
                     onClick = {() => handleSelect(artist.id, artist.name)}
-                    className = "border-4 border-red-600 rounded-xl m-3 max-h-1/12 max-w-1/5 hover:cursor-pointer"
+                    className = "border-4 border-red-600 rounded-xl m-3 max-h-24 max-w-24 hover:cursor-pointer"
                 />
-                <div className = "flex items-center">
+                <div className = "flex flex-col items-start justify-center">
                     <h1>{artist.name}</h1>
                 </div>
             </div>)}
