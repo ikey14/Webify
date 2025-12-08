@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 
 export default function PlaylistCard({id, name, imgSrc, selectPlaylist})
 {
-    useEffect(() => {
-        console.log(imgSrc);
-        // setHasPlaylist(1);
-    }, []);
+    // useEffect(() => {
+    //     console.log(imgSrc);
+    //     // setHasPlaylist(1);
+    // }, []);
 
     return(<div className = "flex lg:flex-row md:flex-col sm:flex-row items-center">
         {imgSrc != undefined && <img 

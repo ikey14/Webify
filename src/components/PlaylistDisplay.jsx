@@ -19,6 +19,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     const [currPlayList, setCurrPlayList] = useState({});
     //To show new playlist creatin screen
     const [showNewPL, setShowNewPL] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     async function toggleFav(id)
@@ -64,37 +65,89 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         // console.log(newPL);
         setShowNewPL(false);
 
-        setCurrPlayList({
-            id: newPL.id,
-            name: newPL.name,
-            imgSrc: "noPlaylistImage.jpg",
-            description: newPL.description,
-            trackItems: newPL.tracks?.items
-        })
-
-        setHasPlaylist(true);
+        handlePlaylistSelect(newPL.id);
     }
 
     async function handlePlaylistSelect(id)
     {
-        const data = await getPlaylistByID(id);
-        setCurrPlayList({
-            id: data.id,
-            name: data.name,
-            imgSrc: data.images?.[0]?.url,
-            description: data.description,
-            trackItems: data.tracks?.items
-        })
+        try
+        {
+            setLoading(true);
+            const data = await getPlaylistByID(id);
 
-        setHasPlaylist(true);
+            setCurrPlayList({
+                id: data.id,
+                name: data.name,
+                imgSrc: data.images?.[0]?.url,
+                description: data.description,
+                trackItems: data.tracks?.items
+            })
+
+            setHasPlaylist(true);
+        }
+        catch(err)
+        {
+            console.log(err);
+            setHasPlaylist(false);
+        }
+        finally
+        {
+            setLoading(false);
+        }
     }
 
     async function loadPlaylists() 
     {
-        const data = await getUserPlaylists(limit);
-        // ensure an array
-        setPlayLists(data.items || []);
+        try
+        {
+            setLoading(true);
+            const data = await getUserPlaylists(limit);
+            // ensure an array
+            setPlayLists(data.items || []);
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+        finally
+        {
+            setLoading(false);
+        }
+
     }
+
+    // async function loadTracks(userInput) 
+    // {
+    //     if (!userInput || userInput === ' ') 
+    //     {
+    //         setHasTracks(false);
+    //         return;
+    //     }
+
+    //     try {
+    //         setLoading(true);
+    //         const data = await getTracks(userInput, limit);
+
+    //         if (data?.tracks?.items) 
+    //         {
+    //             setTracks(data.tracks.items);
+    //             setHasTracks(true);
+    //         } 
+    //         else 
+    //         {
+    //             setHasTracks(false);
+    //         }
+    //     } 
+    //     catch (err) 
+    //     {
+    //         console.error(err);
+    //         setHasArtists(false);
+    //     } 
+    //     finally 
+    //     {
+    //         setLoading(false);
+    //     }
+    // }
 
     useEffect(() => {
         loadPlaylists();
@@ -113,7 +166,12 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
     // flex flex-1 flex-col border-2 rounded-xl w-full min-w-1/3 overflow-hidden md:justify-center mb-auto
 
     return(<div className = "flex flex-col border-2 rounded-xl w-full h-full overflow-hidden">
-        {!hasPlaylist && !showNewPL && playlists.map(playlist => 
+        
+        {loading && (<div className = "flex justify-center my-4">
+            <div className = "w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin" />
+        </div>)}
+        
+        {!hasPlaylist && !showNewPL && !loading && playlists.map(playlist => 
             <PlaylistCard name = {playlist.name}
                 imgSrc = {playlist.images?.[0]?.url}
                 selectPlaylist = {handlePlaylistSelect}
@@ -122,57 +180,63 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             />
         )}
 
-        {!hasPlaylist && !showNewPL && <div>
+        {!hasPlaylist && !showNewPL && !loading && <div>
             
             <button onClick = {() => setShowNewPL(true)} className = "border-2 rounded-xl p-2 m-2 hover:cursor-pointer">NEW</button>
 
         </div>}
 
-        {showNewPL && <div>
-            <form onSubmit={handleSubmit(newPlaylist)}>
-            <div>
-                <input 
-                    {...register('name', { required: true, maxLength: 40 })} 
-                    className = "border-2 rounded-xl m-2"
-                    placeholder = ' Name'
-                />
-                {errors.name?.type === 'required' && "Playlist name is required"}
-                {errors.name?.type === 'maxLength' && "Playlist name must be less than 40 characters."}
+        {showNewPL && !loading && <div>
+
+            <div className = "items-start">
+                <button 
+                    onClick = {() => setShowNewPL(false)} 
+                    className = "text-3xl border-2 border-red-600 rounded-xl mt-1 mb-5 ml-1 h-fit hover:cursor-pointer hover:bg-linear-to-br from-red-600 via-black/0 to-white/0"
+                >
+                ⬅
+                </button>
             </div>
-            <div className = "max-h-70 h-full">
-                <input 
-                    {...register('description', { maxLength: 300 })} 
-                    className = "border-2 rounded-xl m-2"
-                    placeholder = ' Description'
-                />
-                {errors.description?.type === 'maxLength' && "Playlist description must be less than 300 characters."}
+
+            <div className = "flex justify-center items-center md:block md:items-start">
+                <form onSubmit={handleSubmit(newPlaylist)}>
+                <div>
+                    <input 
+                        {...register('name', { required: true, maxLength: 40 })} 
+                        className = "border-2 rounded-xl m-2"
+                        placeholder = ' Name'
+                    />
+                    {errors.name?.type === 'required' && "Playlist name is required"}
+                    {errors.name?.type === 'maxLength' && "Playlist name must be less than 40 characters."}
+                </div>
+                <div className = "max-h-70 h-full">
+                    <input 
+                        {...register('description', { maxLength: 300 })} 
+                        className = "border-2 rounded-xl m-2"
+                        placeholder = ' Description'
+                    />
+                    {errors.description?.type === 'maxLength' && "Playlist description must be less than 300 characters."}
+                </div>
+                <div>
+                    <label className = "m-2">Public</label>
+                    <input 
+                        {...register('public', { required: false })} 
+                        className = "border-2 rounded-xl m-2"
+                        type = "checkbox"
+                    />
+                </div>
+                <input type = "submit" className = "border-2 rounded-xl m-2 p-1 hover:cursor-pointer"/>
+                </form>
             </div>
-            <div>
-                <label className = "m-2">Public</label>
-                <input 
-                    {...register('public', { required: false })} 
-                    className = "border-2 rounded-xl m-2"
-                    type = "checkbox"
-                />
-            </div>
-            <input type = "submit" className = "border-2 rounded-xl m-2 p-1 hover:cursor-pointer"/>
-            </form>
         </div>}
 
-        {hasPlaylist && <div className = "flex flex-col">
-            <div>
+        {hasPlaylist && !loading && <div className = "flex flex-col">
+            <div className = "flex flex-row justify-between">
                 <button 
                     onClick = {() => setHasPlaylist(false)} 
                     className = "text-3xl border-2 border-red-600 rounded-xl mt-1 ml-1 p-1 hover:cursor-pointer hover:bg-linear-to-br from-red-600 via-black/0 to-white/0"
                 >
                 ⬅
                 </button>
-            </div>
-            <div className = "flex flex-col items-center justify-center">
-                <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl my-2 max-h-42 max-w-42" />
-                <h1 className = "m-1 flex text-center text-3xl">{currPlayList.name}</h1>
-                {/* <p className = "m-1">ID: {currPlayList.id}</p> */}
-                <p className = "m-1">{currPlayList.description}</p>
                 <div className = "flex flex-row">
                     <button 
                         onClick = {() => handleGeneratePlayList(currPlayList.id, currPlayList.trackItems)}
@@ -188,6 +252,12 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                     UPDATE
                     </button>
                 </div>
+            </div>
+            <div className = "flex flex-col items-center justify-center">
+                <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl my-2 max-h-42 max-w-42" />
+                <h1 className = "m-1 flex text-center text-3xl">{currPlayList.name}</h1>
+                {/* <p className = "m-1">ID: {currPlayList.id}</p> */}
+                <p className = "m-1">{currPlayList.description}</p>
             </div>
 
             <div className = "m-3 flex flex-col max-h-82 overflow-y-auto mt-1">

@@ -5,10 +5,9 @@ import { useEffect } from 'react';
 
 export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTrack})
 {
-    useEffect(() => {
-        console.log(imgSrc);
-        // setHasPlaylist(1);
-    }, []);
+    // useEffect(() => {
+    //     console.log(imgSrc);
+    // }, []);
 
     return(<div className = "flex xl:flex-row md:flex-col flex-row items-center">
         {imgSrc != undefined && <div className = "m-3 max-h-22 max-w-22 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">

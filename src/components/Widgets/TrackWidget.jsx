@@ -30,7 +30,8 @@ export default function TrackWidget({ preferences, setPreferences })
     const [tracks, setTracks] = useState({});
     const [selectedTracks, setSelectedTracks] = useState([]);
     const [showFavs, setShowFavs] = useState(false);
-    const [favTracks, setFavTracks] = useState({})
+    const [favTracks, setFavTracks] = useState({});
+    const [loading, setLoading] = useState(false);
 
     function toggleShowFavs()
     {
@@ -39,27 +40,34 @@ export default function TrackWidget({ preferences, setPreferences })
 
     async function loadTracks(userInput) 
     {
-        let data;
-
-        if(userInput && userInput != " ")
-        {
-            data = await getTracks(userInput, limit);
-            console.log(data.tracks.items);
-        }
-        else
+        if (!userInput || userInput === ' ') 
         {
             setHasTracks(false);
             return;
         }
 
-        if(data.tracks.items)
+        try {
+            setLoading(true);
+            const data = await getTracks(userInput, limit);
+
+            if (data?.tracks?.items) 
+            {
+                setTracks(data.tracks.items);
+                setHasTracks(true);
+            } 
+            else 
+            {
+                setHasTracks(false);
+            }
+        } 
+        catch (err) 
         {
-            setTracks(data.tracks.items); 
-            setHasTracks(true);
-        }
-        else
+            console.error(err);
+            setHasArtists(false);
+        } 
+        finally 
         {
-            setHasTracks(false);
+            setLoading(false);
         }
     }
 
@@ -128,8 +136,18 @@ export default function TrackWidget({ preferences, setPreferences })
             {/* <input type="submit" /> */}
             </form>
             <div className = "flex flex-row">
-                <button onClick = {() => toggleShowFavs()} className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer">❤️</button>
-                <button onClick = {() => setSelectedTracks([])} className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer">❌</button>
+                <button 
+                    onClick = {() => toggleShowFavs()} 
+                    className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer hover:bg-linear-to-br from-pink-500/25 via-pink-500/50 to-pink-500"
+                >
+                ❤️
+                </button>
+                <button 
+                    onClick = {() => setSelectedTracks([])} 
+                    className = "border-2 rounded-xl p-1 m-1 h-fit hover:cursor-pointer hover:bg-linear-to-br from-white/0 via-black/0 to-red-600"
+                >
+                ❌
+                </button>
             </div>
         </div>
 
@@ -137,7 +155,11 @@ export default function TrackWidget({ preferences, setPreferences })
             {selectedTracks.map(track => <p key = {track.id} className = "border rounded-xl p-1 m-1 h-fit">{track.name}</p>)} 
         </div>}
 
-        {hasTracks && !showFavs && <div className = "max-h-30 overflow-y-auto mt-1">
+        {loading && (<div className = "flex justify-center my-4">
+            <div className = "w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin" />
+        </div>)}
+
+        {hasTracks && !showFavs && <div className = "max-h-130 overflow-y-auto mt-1">
             {tracks.map(track => <div key = {track.id} className = "flex lg:flex-row md:flex-col flex-row">
                 <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 

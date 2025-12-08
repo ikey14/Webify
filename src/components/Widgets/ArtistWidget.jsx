@@ -29,29 +29,38 @@ export default function ArtistWidget({ preferences, setPreferences })
     const [hasArtists, setHasArtists] = useState(false);
     const [artists, setArtists] = useState({});
     const [selectedArtists, setSelectedArtists] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     async function loadArtists(userInput) 
     {
-        let data;
-
-        if(userInput && userInput != " ")
-        {
-            data = await getArtists(userInput, limit);
-        }
-        else
+        if (!userInput || userInput === ' ') 
         {
             setHasArtists(false);
             return;
         }
 
-        if(data.artists.items)
+        try {
+            setLoading(true);
+            const data = await getArtists(userInput, limit);
+
+            if (data?.artists?.items) 
+            {
+                setArtists(data.artists.items);
+                setHasArtists(true);
+            } 
+            else 
+            {
+                setHasArtists(false);
+            }
+        } 
+        catch (err) 
         {
-            setArtists(data.artists.items); 
-            setHasArtists(true);
-        }
-        else
-        {
+            console.error(err);
             setHasArtists(false);
+        } 
+        finally 
+        {
+            setLoading(false);
         }
     }
 
@@ -113,7 +122,12 @@ export default function ArtistWidget({ preferences, setPreferences })
             {/* <input type="submit" /> */}
             </form>
             <div className = "flex flex-row">
-                <button onClick = {() => setSelectedArtists([])} className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
+                <button 
+                    onClick = {() => setSelectedArtists([])} 
+                    className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer hover:bg-linear-to-br from-white/0 via-black/0 to-red-600"
+                >
+                ❌
+                </button>
             </div>
         </div>
 
@@ -121,6 +135,10 @@ export default function ArtistWidget({ preferences, setPreferences })
         {selectedArtists.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
             {selectedArtists.map(artist => <p key = {artist.id} className = "border rounded-xl p-1 m-1 h-fit">{artist.name}</p>)}
         </div>}
+
+        {loading && (<div className = "flex justify-center my-4">
+            <div className = "w-6 h-6 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+        </div>)}
 
 
         {hasArtists && <div className = "max-h-130 overflow-y-auto mt-1">
