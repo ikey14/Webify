@@ -24,7 +24,7 @@ export default function TrackWidget({ setPreferences })
 {
     // let emptySpaces = "";
     let limit = 8;
-    // let privSelectedTracks = [];
+    const maxTracks = 5;
     const [inputTracks, setInputTracks] = useState("");
     const [hasTracks, setHasTracks] = useState(false);
     const [tracks, setTracks] = useState({});
@@ -75,7 +75,7 @@ export default function TrackWidget({ setPreferences })
     {
         const isInList = selectedTracks.some(track => track.id === id);
 
-        if(!isInList && selectedTracks.length < 5)
+        if(!isInList && selectedTracks.length < maxTracks)
         {
             setSelectedTracks([...selectedTracks, {id: id, name: name}]);
         }
@@ -127,7 +127,7 @@ export default function TrackWidget({ setPreferences })
             <div>
                 <input 
                     // {...register('track', { required: true, maxLength: 30 })} 
-                    placeholder = " Track"
+                    placeholder = {" Track (max:" + maxTracks + ")"}
                     className = "border-2 border-gray-600 rounded-xl max-w-38"
                     onChange = {(e) => handleChange(e)}
                 />

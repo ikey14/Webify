@@ -24,7 +24,7 @@ export default function ArtistWidget({ setPreferences })
 {
     // let emptySpaces = "";
     let limit = 8;
-    // let privSelectedArtists = [];
+    const maxArtists = 5;
     const [inputArtists, setInputArtists] = useState("");
     const [hasArtists, setHasArtists] = useState(false);
     const [artists, setArtists] = useState({});
@@ -68,7 +68,7 @@ export default function ArtistWidget({ setPreferences })
     {
         const isInList = selectedArtists.some(artist => artist.id === id);
 
-        if(!isInList && selectedArtists.length < 5)
+        if(!isInList && selectedArtists.length < maxArtists)
         {
             setSelectedArtists([...selectedArtists, {id: id, name: name}]);
         }
@@ -113,7 +113,7 @@ export default function ArtistWidget({ setPreferences })
             <div>
                 <input
                     // {...register('artist', { required: true, maxLength: 30 })}
-                    placeholder = " Artist"
+                    placeholder = {" Artist (max:" + maxArtists + ")"}
                     className = "border-2 border-gray-600 rounded-2xl"
                     onChange = {(e) => handleChange(e)}
                 />

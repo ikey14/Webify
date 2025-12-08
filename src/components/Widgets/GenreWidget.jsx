@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 
 export default function GenreWidget({ setPreferences })
 {
+    const maxGenres = 5;
     let totalGenres = [ 'acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'anime', 'black-metal', 'bluegrass',
          'blues', 'bossanova', 'brazil', 'breakbeat', 'british', 'cantopop', 'chicago-house', 'children', 'chill',
          'classical', 'club', 'comedy', 'country', 'dance', 'dancehall', 'death-metal', 'deep-house', 'detroit-techno',
@@ -49,7 +50,7 @@ export default function GenreWidget({ setPreferences })
     {
         const isInList = selectedGenres.some(oldGenre => oldGenre.genre == newGenre);
 
-        if(!isInList && selectedGenres.length < 5)
+        if(!isInList && selectedGenres.length < maxGenres)
         {
             setSelectedGenres([...selectedGenres, newGenre]);
         }
@@ -89,7 +90,7 @@ export default function GenreWidget({ setPreferences })
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
                 <input
-                    placeholder = " Genre"
+                    placeholder = {" Genre (max:" + maxGenres + ")"}
                     className = "border-2 border-gray-600 rounded-2xl"
                     onChange = {(e) => handleChange(e)}
                 />

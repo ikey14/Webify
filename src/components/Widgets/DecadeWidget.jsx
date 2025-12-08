@@ -5,14 +5,15 @@ import { useForm } from "react-hook-form";
 
 export default function DecadeWidget({ setPreferences })
 {
-    const decades = ["1960", "1970", "1980", "1990", "2000", "2010"]
+    const maxDecades = 5;
+    const decades = ["1960", "1970", "1980", "1990", "2000", "2010"];
     const [selectedDecades, setSelectedDecades] = useState([]);
 
     function handleSelect(newDec)
     {
         const isInList = selectedDecades.some(currDec => currDec === newDec);
 
-        if(!isInList && selectedDecades.length < 5)
+        if(!isInList && selectedDecades.length < maxDecades)
         {
             setSelectedDecades([...selectedDecades, newDec]);
         }
@@ -30,6 +31,9 @@ export default function DecadeWidget({ setPreferences })
     // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
 
     return (<div className = "border-2 border-green-600 m-2 p-2 rounded-xl flex flex-col">
+        <div>
+            <h1 className = "text-center text-xl lg:text-2xl my-2">Decades</h1>
+        </div>
         {selectedDecades.length != 0 && <div className = "flex 2xl:flex-row flex-col flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center justify-between">
             <div className = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                 {selectedDecades.map(dec => <p key = {dec} className = "border rounded-xl p-1 m-1 h-fit">{dec}</p>)}
