@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import ArtistWidget from './Widgets/ArtistWidget';
 import TrackWidget from './Widgets/TrackWidget';
 import GenreWidget from './Widgets/GenreWidget';
+import DecadeWidget from './Widgets/DecadeWidget';
 
 export default function WidgetContainer({ tracks, setTracks, preferences, setPreferences })
 {
@@ -15,5 +16,6 @@ export default function WidgetContainer({ tracks, setTracks, preferences, setPre
         <ArtistWidget preferences = {preferences} setPreferences = {setPreferences} />
         <TrackWidget preferences = {preferences} setPreferences = {setPreferences} />
         <GenreWidget preferences = {preferences} setPreferences = {setPreferences} />
+        <DecadeWidget preferences = {preferences} setPreferences = {setPreferences} />
     </div>)
 }

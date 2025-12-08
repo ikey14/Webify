@@ -60,6 +60,15 @@ export async function getTracks(inputName, limit)
   return tracks;
 }
 
+// export async function getTracksInYearRange(yearRange, limit)
+// {
+//   const url = `https://api.spotify.com/v1/search?type=track&q=year${yearRange}&limit=${limit}`;
+//   // console.log("Getting all tracks with: " + inputName);
+//   //llamar a spotifyfetch manejo de errores
+//   const tracks = await spotifyRequest(url);
+//   return tracks;
+// }
+
 export async function getTrackByID(id)
 {
   const url = `https://api.spotify.com/v1/tracks/${id}`;

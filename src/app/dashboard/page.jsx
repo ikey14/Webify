@@ -39,9 +39,9 @@ export default function Home() {
     await addToPlaylist(id, finalTracks);
   }
 
-  // useEffect(() => {
-  //   console.log(preferences);
-  // }, [preferences]);
+  useEffect(() => {
+    console.log(preferences);
+  }, [preferences]);
 
   return (<div className="min-h-screen overflow-x-hidden bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <div className = "justify-center flex flex-col">

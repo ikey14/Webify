@@ -21,7 +21,6 @@ import { useState, useEffect } from "react"
 
 export default function GenreWidget({ preferences, setPreferences })
 {
-    let limit = 8;
     let totalGenres = [ 'acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'anime', 'black-metal', 'bluegrass',
          'blues', 'bossanova', 'brazil', 'breakbeat', 'british', 'cantopop', 'chicago-house', 'children', 'chill',
          'classical', 'club', 'comedy', 'country', 'dance', 'dancehall', 'death-metal', 'deep-house', 'detroit-techno',
@@ -40,7 +39,6 @@ export default function GenreWidget({ preferences, setPreferences })
     const [hasGenres, setHasGenres] = useState(false);
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
-    // const [loading, setLoading] = useState(false);
 
     async function loadGenres(userInput) 
     {
@@ -101,8 +99,6 @@ export default function GenreWidget({ preferences, setPreferences })
         setInputGenres(e.target.value);
     }
 
-    // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
-
     return (<div className = "border-2 border-yellow-500 m-2 p-2 rounded-xl flex flex-col">
         <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
@@ -124,23 +120,12 @@ export default function GenreWidget({ preferences, setPreferences })
             </div>
         </div>
 
-
         {selectedGenres.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
             {selectedGenres.map(g => <p key = {g} className = "border rounded-xl p-1 m-1 h-fit">{g}</p>)}
         </div>}
 
-        {/* {loading && (<div className = "flex justify-center my-4">
-            <div className = "w-6 h-6 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
-        </div>)} */}
-
-
         {hasGenres && <div className = "max-h-130 overflow-y-auto mt-1">
             {genres.map(g => <div key = {g} className = "flex flex-row">
-                {/* <img
-                    src = {artist.images[0]?.url}
-                    onClick = {() => handleSelect(artist.id, artist.name)}
-                    className = "border-4 border-red-600 rounded-xl m-3 max-h-20 max-w-20 hover:cursor-pointer"
-                /> */}
                 <div onClick = {() => handleSelect(g)} 
                     className = "flex flex-col items-start justify-center m-3 border-2 border-yellow-500 rounded-xl hover:cursor-pointer"
                 >
