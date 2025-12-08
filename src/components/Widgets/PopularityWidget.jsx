@@ -30,25 +30,30 @@ export default function PopularityWidget({ setPreferences })
     return (<div className = "border-2 border-blue-600 m-2 p-2 rounded-xl flex flex-col">
         <div className = "grid grid-cols-1">
             <label className = "text-center text-xl lg:text-2xl my-2">Popularity Range </label>
-            <input
-                type="range"
-                min = "0"
-                max = "100"
-                placeholder = "MIN"
-                value = {minVal}
-                onChange = {(e) => setMinVal(Math.min(Number(e.target.value), maxVal))}
-                className = "w-full my-4 bg-blue-600"
-            />
-
-            <input
-                type = "range"
-                min = "0"
-                max = "100"
-                placeholder = "MAX"
-                value = {maxVal}
-                onChange = {(e) => setMaxVal(Math.max(Number(e.target.value), minVal))}
-                className = "w-full my-4 bg-red-600"
-            />
+            <label className = "text-center text-blue-600">MIN</label>
+            <div className = "border-2 border-blue-600 h-fit rounded-xl flex flex-col justify-center items-center mb-3 brightness-70 hover:brightness-100 transition duration-150">
+                <input
+                    type="range"
+                    min = "0"
+                    max = "100"
+                    placeholder = "MIN"
+                    value = {minVal}
+                    onChange = {(e) => setMinVal(Math.min(Number(e.target.value), maxVal))}
+                    className = "w-full"
+                />
+            </div>
+            <label className = "text-center text-red-600">MAX</label>
+            <div className = "border-2 border-red-600 h-fit rounded-xl flex flex-col justify-center items-center mb-3 brightness-70 hover:brightness-100 transition duration-150">
+                <input
+                    type = "range"
+                    min = "0"
+                    max = "100"
+                    placeholder = "MAX"
+                    value = {maxVal}
+                    onChange = {(e) => setMaxVal(Math.max(Number(e.target.value), minVal))}
+                    className = "w-full"
+                />
+            </div>
         </div>
     </div>);
 }

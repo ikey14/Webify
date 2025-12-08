@@ -29,6 +29,13 @@ input[type='range']::-webkit-slider-thumb {
   @apply bg-blue-600;
 } */
 
+input[type = 'range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent; /* so only the track shows */
+}
+
 @layer components
 {
   .blue-Black-White-GradBR
