@@ -99,7 +99,7 @@ export default function ArtistWidget({ preferences, setPreferences })
     // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
 
     return (<div className = "border-2 border-red-600 m-2 p-2 rounded-xl flex flex-col">
-        <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
+        <div className = "flex lg:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
                 <input
@@ -112,7 +112,9 @@ export default function ArtistWidget({ preferences, setPreferences })
             </div>
             {/* <input type="submit" /> */}
             </form>
-            <button onClick = {() => setSelectedArtists([])} className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
+            <div className = "flex flex-row">
+                <button onClick = {() => setSelectedArtists([])} className = "border-2 rounded-xl p-1 h-fit hover:cursor-pointer">❌</button>
+            </div>
         </div>
 
 
@@ -121,7 +123,7 @@ export default function ArtistWidget({ preferences, setPreferences })
         </div>}
 
 
-        {hasArtists && <div className = "max-h-155 overflow-y-auto mt-1">
+        {hasArtists && <div className = "max-h-130 overflow-y-auto mt-1">
             {artists.map(artist => <div key = {artist.id} className = "flex flex-row">
                 <img
                     src = {artist.images[0]?.url}

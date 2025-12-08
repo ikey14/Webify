@@ -170,7 +170,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             </div>
             <div className = "flex flex-col items-center justify-center">
                 <img src = {currPlayList.imgSrc} className = "border-4 border-white rounded-xl my-2 max-h-42 max-w-42" />
-                <h1 className = "m-1">{currPlayList.name}</h1>
+                <h1 className = "m-1 flex text-center text-3xl">{currPlayList.name}</h1>
                 {/* <p className = "m-1">ID: {currPlayList.id}</p> */}
                 <p className = "m-1">{currPlayList.description}</p>
                 <div className = "flex flex-row">

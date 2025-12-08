@@ -10,7 +10,7 @@ export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTra
         // setHasPlaylist(1);
     }, []);
 
-    return(<div className = "flex xl:flex-row flex-col items-center">
+    return(<div className = "flex xl:flex-row md:flex-col flex-row items-center">
         {imgSrc != undefined && <div className = "m-3 max-h-22 max-w-22 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
             <img 
                 src = {imgSrc} 
@@ -25,7 +25,7 @@ export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTra
             />
         </div>}
 
-        <div className = "flex flex-1 justify-between">
+        <div className = "flex xl:flex-row md:flex-col flex-row flex-1 justify-between">
             <div className = "flex flex-col justify-center items-start">
                 <h1 className = "m-1">{name}</h1>
                 <p className = "m-1 text-gray-600">{artist}</p>

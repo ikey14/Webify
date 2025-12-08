@@ -46,13 +46,12 @@ export default function Home() {
     <div className = "justify-center flex flex-col">
       <Header hasLogout = {true} />
       <div className = "flex flex-1 flex-col md:flex-row w-full overflow-x-hidden gap-x-2">
-        <div className="w-full md:w-1/3 max-w-full mx-3 my-1">
+        <div className="w-full md:w-1/3 max-w-full md:mx-3 md:my-1 my-2">
           <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
         </div>
-        <div className="w-full md:w-2/3 max-w-full mx-3 my-1">
+        <div className="w-full md:w-2/3 max-w-full md:mx-3 md:my-1 my-2">
           <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
         </div>
-        
       </div>
     </div>
   </div>);
