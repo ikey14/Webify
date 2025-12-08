@@ -14,12 +14,12 @@ export default function PlaylistCard({id, name, imgSrc, selectPlaylist})
         {imgSrc != undefined && <img 
             onClick = {() => selectPlaylist(id)} 
             src = {imgSrc} 
-            className = "border-4 border-white rounded-2xl m-3 max-h-20 max-w-20 hover:cursor-pointer"/>}
+            className = "border-4 border-white rounded-2xl m-3 max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150"/>}
 
         {imgSrc == undefined && <img 
             onClick = {() => selectPlaylist(id)} 
             src = "noPlaylistImage.jpg" 
-            className = "border-4 border-white rounded-2xl m-3 max-h-20 lg:max-w-20 hover:cursor-pointer"/>}
+            className = "border-4 border-white rounded-2xl m-3 max-h-20 lg:max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150"/>}
         
         <div className = "flex justify-center items-center">
             <h1 className = "p-2 md:text-xl lg:text-2xl text-2xl">{name}</h1>

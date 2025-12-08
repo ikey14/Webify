@@ -145,7 +145,7 @@ export default function ArtistWidget({ setPreferences })
                 <img
                     src = {artist.images[0]?.url}
                     onClick = {() => handleSelect(artist.id, artist.name)}
-                    className = "border-4 border-red-600 rounded-xl m-3 max-h-20 max-w-20 hover:cursor-pointer"
+                    className = "border-4 border-red-600 rounded-xl m-3 max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150"
                 />
                 <div className = "flex flex-col items-start justify-center">
                     <h1>{artist.name}</h1>

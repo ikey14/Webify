@@ -48,7 +48,7 @@ export default function DecadeWidget({ setPreferences })
             {decades.map(dec => <div key = {dec} className = "h-full">
                 <div 
                     onClick = {() => handleSelect(dec)} 
-                    className = "h-full flex justify-center items-center mx-2 border-4 border-green-600 rounded-xl hover:cursor-pointer">
+                    className = "h-full flex justify-center items-center mx-2 border-4 border-green-600 rounded-xl hover:cursor-pointer hover:brightness-50 transition duration-150">
                     <h1 className = "text-center text-xl lg:text-2xl">{dec}</h1>
                 </div>
             </div>)}

@@ -112,7 +112,7 @@ export default function GenreWidget({ setPreferences })
         {hasGenres && <div className = "max-h-80 overflow-y-auto mt-1">
             {genres.map(g => <div key = {g} className = "flex flex-row">
                 <div onClick = {() => handleSelect(g)} 
-                    className = "flex flex-col items-start justify-center m-3 border-2 border-yellow-500 rounded-xl hover:cursor-pointer"
+                    className = "flex flex-col items-start justify-center m-3 border-2 border-yellow-500 rounded-xl hover:cursor-pointer hover:brightness-50 transition duration-150"
                 >
                     <h1 className = "p-1">{g}</h1>
                 </div>

@@ -151,7 +151,12 @@ export default function PlaylistDisplay({ generatePlayList, updatePlayList })
 
         {!hasPlaylist && !showNewPL && !loading && <div>
             
-            <button onClick = {() => setShowNewPL(true)} className = "border-2 rounded-xl p-2 m-2 hover:cursor-pointer">NEW</button>
+            <button 
+                onClick = {() => setShowNewPL(true)} 
+                className = "border-2 rounded-xl p-2 m-2 hover:cursor-pointer hover:bg-linear-to-br hover:from-white/0 hover:via-black/0 hover:to-white"
+            >
+            NEW
+            </button>
 
         </div>}
 
@@ -193,7 +198,10 @@ export default function PlaylistDisplay({ generatePlayList, updatePlayList })
                         type = "checkbox"
                     />
                 </div>
-                <input type = "submit" className = "border-2 rounded-xl m-2 p-1 hover:cursor-pointer"/>
+                <input 
+                    type = "submit" 
+                    className = "border-2 rounded-xl m-2 p-1 hover:cursor-pointer hover:bg-linear-to-br from-white/0 via-black/0 to-white"
+                />
                 </form>
             </div>
         </div>}

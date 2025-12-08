@@ -161,7 +161,7 @@ export default function TrackWidget({ setPreferences })
 
         {hasTracks && !showFavs && <div className = "max-h-80 overflow-y-auto mt-1">
             {tracks.map(track => <div key = {track.id} className = "flex lg:flex-row md:flex-col flex-row">
-                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150 bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}
@@ -183,7 +183,7 @@ export default function TrackWidget({ setPreferences })
 
         {showFavs && <div className = "max-h-80 overflow-y-auto mt-1">
             {favTracks.map(track => <div key = {track.id} className = "flex lg:flex-row md:flex-col flex-row">
-                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
+                <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150 bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
                         src = {track.album?.images[0]?.url}
                         onClick = {() => handleSelect(track.id, track.name)}
