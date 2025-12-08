@@ -122,13 +122,13 @@ export default function TrackWidget({ preferences, setPreferences })
     // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
 
     return (<div className = "border-2 border-white m-2 p-2 rounded-xl flex flex-col">
-        <div className = "flex lg:flex-row flex-col justify-between items-center mb-1">
+        <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
                 <input 
                     // {...register('track', { required: true, maxLength: 30 })} 
                     placeholder = " Track"
-                    className = "border-2 border-gray-600 rounded-xl"
+                    className = "border-2 border-gray-600 rounded-xl max-w-38"
                     onChange = {(e) => handleChange(e)}
                 />
                 {/* {errors.track?.type === 'maxLength' && "track debe tener menos de 30 caracteres"} */}
