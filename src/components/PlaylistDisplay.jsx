@@ -8,7 +8,7 @@ import { createPlaylist, getPlaylistByID, getTrackByID, getUserPlaylists, remove
 import PlaylistCard from './PlaylistCard';
 import TrackCard from './TrackCard';
 
-export default function PlaylistDisplay({ tracks, setTracks, preferences, generatePlayList, updatePlayList })
+export default function PlaylistDisplay({ generatePlayList, updatePlayList })
 {
     let limit = 10;
     //0 if no playlist selected, 1 if there is a playlist selected
@@ -53,7 +53,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
 
     async function handleUpdatePlayList(id, currTracks)
     {
-        console.log(currTracks);
+        // console.log(currTracks);
         await updatePlayList(id, currTracks);
         await handlePlaylistSelect(id);
     }
@@ -87,7 +87,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         }
         catch(err)
         {
-            console.log(err);
+            // console.log(err);
             setHasPlaylist(false);
         }
         finally
@@ -107,7 +107,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
         }
         catch(err)
         {
-            console.log(err);
+            // console.log(err);
         }
         finally
         {
@@ -116,51 +116,18 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
 
     }
 
-    // async function loadTracks(userInput) 
-    // {
-    //     if (!userInput || userInput === ' ') 
-    //     {
-    //         setHasTracks(false);
-    //         return;
-    //     }
-
-    //     try {
-    //         setLoading(true);
-    //         const data = await getTracks(userInput, limit);
-
-    //         if (data?.tracks?.items) 
-    //         {
-    //             setTracks(data.tracks.items);
-    //             setHasTracks(true);
-    //         } 
-    //         else 
-    //         {
-    //             setHasTracks(false);
-    //         }
-    //     } 
-    //     catch (err) 
-    //     {
-    //         console.error(err);
-    //         setHasArtists(false);
-    //     } 
-    //     finally 
-    //     {
-    //         setLoading(false);
-    //     }
-    // }
-
     useEffect(() => {
         loadPlaylists();
         // console.log(playlists);
     }, [hasPlaylist]);
 
-    useEffect(() => {
-        // console.log(playlists);
-    }, [playlists]);
+    // useEffect(() => {
+    //     // console.log(playlists);
+    // }, [playlists]);
 
-    useEffect(() => {
-        console.log(currPlayList);
-    }, [currPlayList]);
+    // useEffect(() => {
+    //     // console.log(currPlayList);
+    // }, [currPlayList]);
 
 
     // flex flex-1 flex-col border-2 rounded-xl w-full min-w-1/3 overflow-hidden md:justify-center mb-auto
@@ -171,7 +138,8 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
             <div className = "w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin" />
         </div>)}
         
-        {!hasPlaylist && !showNewPL && !loading && playlists.map(playlist => 
+        <div className = "max-h-130 overflow-y-auto mt-1">
+        {!hasPlaylist && !showNewPL && !loading && playlists.map(playlist =>
             <PlaylistCard name = {playlist.name}
                 imgSrc = {playlist.images?.[0]?.url}
                 selectPlaylist = {handlePlaylistSelect}
@@ -179,6 +147,7 @@ export default function PlaylistDisplay({ tracks, setTracks, preferences, genera
                 key = {playlist.id}
             />
         )}
+        </div>
 
         {!hasPlaylist && !showNewPL && !loading && <div>
             

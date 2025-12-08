@@ -20,7 +20,7 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 
 
-export default function TrackWidget({ preferences, setPreferences })
+export default function TrackWidget({ setPreferences })
 {
     // let emptySpaces = "";
     let limit = 8;
@@ -81,30 +81,30 @@ export default function TrackWidget({ preferences, setPreferences })
         }
         else
         {
-            console.log("(TrackWidget) track with ID: " + id + " is already selected or the max length of Tracks has been reached.")
+            // console.log("(TrackWidget) track with ID: " + id + " is already selected or the max length of Tracks has been reached.");
         }
     }
 
     useEffect(() => {
-        console.log(tracks);
+        // console.log(tracks);
     }, [tracks]);
 
     useEffect(() => {
-        console.log(favTracks);
+        // console.log(favTracks);
         setFavTracks(JSON.parse(localStorage.getItem('favorite_tracks') || '[]'));
     }, [showFavs]);
 
     
 
     useEffect(() => {
-        console.log(inputTracks);
+        // console.log(inputTracks);
         const getData = setTimeout(() => {loadTracks(inputTracks)}, 750);
         return () => clearTimeout(getData);
     }, [inputTracks]);
 
     useEffect(() => {
         // console.log("(track Widget) SELECTED track USEFFECT");
-        console.log(selectedTracks);
+        // console.log(selectedTracks);
         setPreferences(prev => ({...prev, tracks: selectedTracks}));
     }, [selectedTracks]);
 
@@ -115,7 +115,7 @@ export default function TrackWidget({ preferences, setPreferences })
     
     function handleChange(e)
     {
-        console.log("(TrackWidget) Input: " + e.target.value);
+        // console.log("(TrackWidget) Input: " + e.target.value);
         setInputTracks(e.target.value);
     }
 

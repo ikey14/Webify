@@ -12,16 +12,17 @@ import { addToPlaylist, removeFromPlaylist } from '../api/ApiCall';
 
 export default function Home() {
   // const router = useRouter();
-  const [tracks, setTracks] = useState([])
+  // const [tracks, setTracks] = useState([]);
   const [preferences, setPreferences] = useState({});
   // const [loading, setLoading] = useState(false);
 
   async function generateNewPlaylist(id, oldTracks)
   {
-    oldTracks.length > 0? await removeFromPlaylist(id, oldTracks) : console.log("No tracks in this playlist")
+    let nothing;
+    oldTracks.length > 0? await removeFromPlaylist(id, oldTracks) : nothing = "nothing"
     const newTracks = await generatePlaylist(preferences);
-    console.log(newTracks);
-    console.log(oldTracks);
+    // console.log(newTracks);
+    // console.log(oldTracks);
     // return newTracks;
     await addToPlaylist(id, newTracks);
   }
@@ -29,7 +30,7 @@ export default function Home() {
   async function updatePlaylist(id, currentTracks)
   {
     const newTracks = await generatePlaylist(preferences);
-    console.log(newTracks);
+    // console.log(newTracks);
 
     //newTracks: track.id
     //currTracks: item.track.id
@@ -39,19 +40,19 @@ export default function Home() {
     await addToPlaylist(id, finalTracks);
   }
 
-  useEffect(() => {
-    console.log(preferences);
-  }, [preferences]);
+  // useEffect(() => {
+  //   console.log(preferences);
+  // }, [preferences]);
 
   return (<div className="min-h-screen overflow-x-hidden bg-fixed bg-cover bg-center blue-Black-White-GradBR">
     <div className = "justify-center flex flex-col">
       <Header hasLogout = {true} />
       <div className = "flex flex-1 flex-col md:flex-row w-full overflow-x-hidden gap-x-2">
         <div className="w-full md:w-1/3 max-w-full md:mx-3 md:my-1 my-2">
-          <PlaylistDisplay tracks = {tracks} setTracks = {setTracks} generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
+          <PlaylistDisplay generatePlayList = {generateNewPlaylist} updatePlayList = {updatePlaylist}/>
         </div>
         <div className="w-full md:w-2/3 max-w-full md:mx-3 md:my-1 my-2">
-          <WidgetContainer tracks = {tracks} setTracks = {setTracks} preferences = {preferences} setPreferences = {setPreferences}/>
+          <WidgetContainer setPreferences = {setPreferences}/>
         </div>
       </div>
     </div>

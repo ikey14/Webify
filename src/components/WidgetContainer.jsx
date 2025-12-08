@@ -8,16 +8,16 @@ import GenreWidget from './Widgets/GenreWidget';
 import DecadeWidget from './Widgets/DecadeWidget';
 import PopularityWidget from './Widgets/PopularityWidget';
 
-export default function WidgetContainer({ tracks, setTracks, preferences, setPreferences })
+export default function WidgetContainer({ setPreferences })
 {
     
     // grid gap-1 sm:grid-cols-1 lg:grid-cols-2 border-2 rounded-xl min-h-svh max-w-full w-full mb-auto ml-2 mr-1.5
     // grid gap-1 sm:grid-cols-1 lg:grid-cols-2 border-2 rounded-xl min-h-svh w-full overflow-hidden
     return(<div className = "grid gap-1 sm:grid-cols-1 lg:grid-cols-3 border-2 rounded-xl h-full w-full overflow-hidden">
-        <ArtistWidget preferences = {preferences} setPreferences = {setPreferences} />
-        <TrackWidget preferences = {preferences} setPreferences = {setPreferences} />
-        <GenreWidget preferences = {preferences} setPreferences = {setPreferences} />
-        <DecadeWidget preferences = {preferences} setPreferences = {setPreferences} />
-        <PopularityWidget preferences = {preferences} setPreferences = {setPreferences} />
+        <ArtistWidget setPreferences = {setPreferences} />
+        <TrackWidget setPreferences = {setPreferences} />
+        <GenreWidget setPreferences = {setPreferences} />
+        <DecadeWidget setPreferences = {setPreferences} />
+        <PopularityWidget setPreferences = {setPreferences} />
     </div>)
 }

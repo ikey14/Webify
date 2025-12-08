@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 // import { useForm } from "react-hook-form";
 
 
-export default function GenreWidget({ preferences, setPreferences })
+export default function GenreWidget({ setPreferences })
 {
     let totalGenres = [ 'acoustic', 'afrobeat', 'alt-rock', 'alternative', 'ambient', 'anime', 'black-metal', 'bluegrass',
          'blues', 'bossanova', 'brazil', 'breakbeat', 'british', 'cantopop', 'chicago-house', 'children', 'chill',
@@ -55,21 +55,21 @@ export default function GenreWidget({ preferences, setPreferences })
         }
         else
         {
-            console.log("(GenreWidget) Max length of genres has been reached or genre" + newGenre + "is already selected.");
+            // console.log("(GenreWidget) Max length of genres has been reached or genre" + newGenre + "is already selected.");
         }
     }
 
     useEffect(() => {
-        console.log(genres);
+        // console.log(genres);
     }, [genres]);
 
     useEffect(() => {
-        console.log(inputGenres);
+        // console.log(inputGenres);
         loadGenres(inputGenres);
     }, [inputGenres]);
 
     useEffect(() => {
-        console.log(selectedGenres);
+        // console.log(selectedGenres);
         setPreferences(prev => ({...prev, genres: selectedGenres}));
     }, [selectedGenres]);
 
@@ -80,7 +80,7 @@ export default function GenreWidget({ preferences, setPreferences })
     
     function handleChange(e)
     {
-        console.log("(GenreWidget) Input: " + e.target.value);
+        // console.log("(GenreWidget) Input: " + e.target.value);
         setInputGenres(e.target.value);
     }
 
@@ -109,7 +109,7 @@ export default function GenreWidget({ preferences, setPreferences })
             {selectedGenres.map(g => <p key = {g} className = "border rounded-xl p-1 m-1 h-fit">{g}</p>)}
         </div>}
 
-        {hasGenres && <div className = "max-h-130 overflow-y-auto mt-1">
+        {hasGenres && <div className = "max-h-80 overflow-y-auto mt-1">
             {genres.map(g => <div key = {g} className = "flex flex-row">
                 <div onClick = {() => handleSelect(g)} 
                     className = "flex flex-col items-start justify-center m-3 border-2 border-yellow-500 rounded-xl hover:cursor-pointer"

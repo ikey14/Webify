@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 
 
-export default function PopularityWidget({ preferences, setPreferences })
+export default function PopularityWidget({ setPreferences })
 {
     const [minVal, setMinVal] = useState(0);
     const [maxVal, setMaxVal] = useState(100);
@@ -16,12 +16,12 @@ export default function PopularityWidget({ preferences, setPreferences })
     }
 
     useEffect(() => {
-        console.log(minVal);
+        // console.log(minVal);
         handleSelect(minVal, maxVal);
     }, [minVal, maxVal]);
 
     useEffect(() => {
-        console.log(selectedPopularity);
+        // console.log(selectedPopularity);
         setPreferences(prev => ({...prev, popularity: selectedPopularity}));
     }, [selectedPopularity]);
 
@@ -37,7 +37,7 @@ export default function PopularityWidget({ preferences, setPreferences })
                 placeholder = "MIN"
                 value = {minVal}
                 onChange = {(e) => setMinVal(Math.min(Number(e.target.value), maxVal))}
-                className = "my-4"
+                className = "w-full my-4 bg-blue-600"
             />
 
             <input
@@ -47,7 +47,7 @@ export default function PopularityWidget({ preferences, setPreferences })
                 placeholder = "MAX"
                 value = {maxVal}
                 onChange = {(e) => setMaxVal(Math.max(Number(e.target.value), minVal))}
-                className = "my-4"
+                className = "w-full my-4 bg-red-600"
             />
         </div>
     </div>);

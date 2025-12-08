@@ -155,7 +155,7 @@ export async function spotifyRequest(url)
 
 export async function spotifyNewPlaylistRequest(body) 
 {
-  console.log(body);
+  // console.log(body);
   const url = `https://api.spotify.com/v1/me/playlists`;
   const token = getAccessToken();
   
@@ -221,7 +221,7 @@ export async function spotifyAddToPlaylistRequest(id, newTracks)
     return;
   }
 
-  console.log(newTracks);
+  // console.log(newTracks);
   const url = `https://api.spotify.com/v1/playlists/${id}/tracks`;
   const token = getAccessToken();
   // const stringNewTracks = newTracks.toString();
@@ -280,7 +280,7 @@ export async function spotifyAddToPlaylistRequest(id, newTracks)
 
 export async function spotifyRemoveFromPlaylistRequest(id, oldTracks)
 {
-  console.log(oldTracks);
+  // console.log(oldTracks);
   const url = `https://api.spotify.com/v1/playlists/${id}/tracks`;
   const token = getAccessToken();
   const trackObjects = Array.isArray(oldTracks)? oldTracks.map(uri => ({ uri })) : [{"uri": oldTracks}];

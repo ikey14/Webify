@@ -20,7 +20,7 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 
 
-export default function ArtistWidget({ preferences, setPreferences })
+export default function ArtistWidget({ setPreferences })
 {
     // let emptySpaces = "";
     let limit = 8;
@@ -74,23 +74,23 @@ export default function ArtistWidget({ preferences, setPreferences })
         }
         else
         {
-            console.log("(ArtistWidget) Artist with ID: " + id + " is already selected or the max length of artists has been reached.")
+            // console.log("(ArtistWidget) Artist with ID: " + id + " is already selected or the max length of artists has been reached.")
         }
     }
 
-    useEffect(() => {
-        console.log(artists);
-    }, [artists]);
+    // useEffect(() => {
+    //     console.log(artists);
+    // }, [artists]);
 
     useEffect(() => {
-        console.log(inputArtists);
+        // console.log(inputArtists);
         const getData = setTimeout(() => {loadArtists(inputArtists)}, 750);
         return () => clearTimeout(getData);
     }, [inputArtists]);
 
     useEffect(() => {
         // console.log("(Artist Widget) SELECTED ARTIST USEFFECT");
-        console.log(selectedArtists);
+        // console.log(selectedArtists);
         setPreferences(prev => ({...prev, artists: selectedArtists}));
     }, [selectedArtists]);
 
@@ -101,7 +101,7 @@ export default function ArtistWidget({ preferences, setPreferences })
     
     function handleChange(e)
     {
-        console.log("(ArtistWidget) Input: " + e.target.value);
+        // console.log("(ArtistWidget) Input: " + e.target.value);
         setInputArtists(e.target.value);
     }
 

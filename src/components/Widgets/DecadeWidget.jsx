@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
 
-export default function DecadeWidget({ preferences, setPreferences })
+export default function DecadeWidget({ setPreferences })
 {
     const decades = ["1960", "1970", "1980", "1990", "2000", "2010"]
     const [selectedDecades, setSelectedDecades] = useState([]);
@@ -18,12 +18,12 @@ export default function DecadeWidget({ preferences, setPreferences })
         }
         else
         {
-            console.log("(DecadesWidget) " + newDec + " is already selected or the max length of artists has been reached.");
+            // console.log("(DecadesWidget) " + newDec + " is already selected or the max length of artists has been reached.");
         }
     }
 
     useEffect(() => {
-        console.log(selectedDecades);
+        // console.log(selectedDecades);
         setPreferences(prev => ({...prev, decades: selectedDecades}));
     }, [selectedDecades]);
 
