@@ -62,7 +62,7 @@ export async function getTracks(inputName, limit)
 
 // export async function getTracksInYearRange(yearRange, limit)
 // {
-//   const url = `https://api.spotify.com/v1/search?type=track&q=year${yearRange}&limit=${limit}`;
+//   const url = `https://api.spotify.com/v1/search?type=track&q=${yearRange}&limit=${limit}`;
 //   // console.log("Getting all tracks with: " + inputName);
 //   //llamar a spotifyfetch manejo de errores
 //   const tracks = await spotifyRequest(url);

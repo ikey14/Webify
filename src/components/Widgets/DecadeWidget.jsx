@@ -1,9 +1,7 @@
 'use-client'
 
-import { getArtists } from "@/app/api/ApiCall";
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
-
 
 export default function DecadeWidget({ preferences, setPreferences })
 {
@@ -32,8 +30,8 @@ export default function DecadeWidget({ preferences, setPreferences })
     // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
 
     return (<div className = "border-2 border-green-600 m-2 p-2 rounded-xl flex flex-col">
-        {selectedDecades.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center justify-between">
-            <div className = "flex flex-row flex-wrap">
+        {selectedDecades.length != 0 && <div className = "flex 2xl:flex-row flex-col flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center justify-between">
+            <div className = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                 {selectedDecades.map(dec => <p key = {dec} className = "border rounded-xl p-1 m-1 h-fit">{dec}</p>)}
             </div>
             <div className = "flex flex-row">
@@ -46,7 +44,7 @@ export default function DecadeWidget({ preferences, setPreferences })
             </div>
         </div>}
 
-        <div className = "grid justify-between grid-cols-2 lg:grid-cols-3 h-full p-1 gap-y-6">
+        <div className = "grid justify-between grid-cols-2 xl:grid-cols-3 h-full p-1 gap-y-6">
             {decades.map(dec => <div key = {dec} className = "h-full">
                 <div 
                     onClick = {() => handleSelect(dec)} 

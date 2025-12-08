@@ -1,3 +1,58 @@
+'use-client'
+
+import { useState, useEffect } from "react"
+import { useForm } from "react-hook-form";
+
+
+export default function PopularityWidget({ preferences, setPreferences })
+{
+    const [minVal, setMinVal] = useState(0);
+    const [maxVal, setMaxVal] = useState(100);
+    const [selectedPopularity, setSelectedPopularity] = useState([]);
+
+    function handleSelect(lowP, highP)
+    {
+        setSelectedPopularity([lowP, highP]);
+    }
+
+    useEffect(() => {
+        console.log(minVal);
+        handleSelect(minVal, maxVal);
+    }, [minVal, maxVal]);
+
+    useEffect(() => {
+        console.log(selectedPopularity);
+        setPreferences(prev => ({...prev, popularity: selectedPopularity}));
+    }, [selectedPopularity]);
+
+    // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
+
+    return (<div className = "border-2 border-blue-600 m-2 p-2 rounded-xl flex flex-col">
+        <div className = "grid grid-cols-1">
+            <label className = "text-center text-xl lg:text-2xl my-2">Popularity Range </label>
+            <input
+                type="range"
+                min = "0"
+                max = "100"
+                placeholder = "MIN"
+                value = {minVal}
+                onChange = {(e) => setMinVal(Math.min(Number(e.target.value), maxVal))}
+                className = "my-4"
+            />
+
+            <input
+                type = "range"
+                min = "0"
+                max = "100"
+                placeholder = "MAX"
+                value = {maxVal}
+                onChange = {(e) => setMaxVal(Math.max(Number(e.target.value), minVal))}
+                className = "my-4"
+            />
+        </div>
+    </div>);
+}
+
 // Cada widget debe:
 
 // Ser un componente React independiente

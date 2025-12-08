@@ -131,7 +131,6 @@ export default function ArtistWidget({ preferences, setPreferences })
             </div>
         </div>
 
-
         {selectedArtists.length != 0 && <div className = "flex flex-row flex-wrap bg-blue-600/50 rounded-xl p-1 w-full items-center">
             {selectedArtists.map(artist => <p key = {artist.id} className = "border rounded-xl p-1 m-1 h-fit">{artist.name}</p>)}
         </div>}
@@ -141,7 +140,7 @@ export default function ArtistWidget({ preferences, setPreferences })
         </div>)}
 
 
-        {hasArtists && <div className = "max-h-130 overflow-y-auto mt-1">
+        {hasArtists && <div className = "max-h-80 overflow-y-auto mt-1">
             {artists.map(artist => <div key = {artist.id} className = "flex flex-row">
                 <img
                     src = {artist.images[0]?.url}

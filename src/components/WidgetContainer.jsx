@@ -6,6 +6,7 @@ import ArtistWidget from './Widgets/ArtistWidget';
 import TrackWidget from './Widgets/TrackWidget';
 import GenreWidget from './Widgets/GenreWidget';
 import DecadeWidget from './Widgets/DecadeWidget';
+import PopularityWidget from './Widgets/PopularityWidget';
 
 export default function WidgetContainer({ tracks, setTracks, preferences, setPreferences })
 {
@@ -17,5 +18,6 @@ export default function WidgetContainer({ tracks, setTracks, preferences, setPre
         <TrackWidget preferences = {preferences} setPreferences = {setPreferences} />
         <GenreWidget preferences = {preferences} setPreferences = {setPreferences} />
         <DecadeWidget preferences = {preferences} setPreferences = {setPreferences} />
+        <PopularityWidget preferences = {preferences} setPreferences = {setPreferences} />
     </div>)
 }

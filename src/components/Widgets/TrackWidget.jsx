@@ -159,7 +159,7 @@ export default function TrackWidget({ preferences, setPreferences })
             <div className = "w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin" />
         </div>)}
 
-        {hasTracks && !showFavs && <div className = "max-h-130 overflow-y-auto mt-1">
+        {hasTracks && !showFavs && <div className = "max-h-80 overflow-y-auto mt-1">
             {tracks.map(track => <div key = {track.id} className = "flex lg:flex-row md:flex-col flex-row">
                 <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
@@ -181,7 +181,7 @@ export default function TrackWidget({ preferences, setPreferences })
 
         
 
-        {showFavs && <div className = "max-h-130 overflow-y-auto mt-1">
+        {showFavs && <div className = "max-h-80 overflow-y-auto mt-1">
             {favTracks.map(track => <div key = {track.id} className = "flex lg:flex-row md:flex-col flex-row">
                 <div className = "p-1 m-3 rounded-xl max-h-20 max-w-20 hover:cursor-pointer bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
                     <img 
