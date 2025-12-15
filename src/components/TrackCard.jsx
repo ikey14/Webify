@@ -8,19 +8,27 @@ export default function TrackCard({id, name, imgSrc, artist, removeTrack, favTra
     // useEffect(() => {
     //     console.log(imgSrc);
     // }, []);
+    function handleImageClick()
+    {
+        //blank = new tab
+        //noopener so that the new tab can't affect the old one (noreferrer does something similar)
+        window.open(`https://open.spotify.com/track/${id}`, '_blank', 'noopener,noreferrer');
+    }
 
     return(<div className = "flex xl:flex-row md:flex-col flex-row items-center">
         {imgSrc != undefined && <div className = "m-3 max-h-22 max-w-22 p-1 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
             <img 
-                src = {imgSrc} 
-                className = "rounded-xl max-h-20 max-w-20 "
+                src = {imgSrc}
+                onClick = {() => handleImageClick()}
+                className = "rounded-xl max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150"
             />
         </div>}
 
         {imgSrc == undefined && <div className = "m-3 max-h-22 max-w-22 p-0.5 rounded-xl bg-linear-to-r from-red-500 via-yellow-500 to-blue-500">
             <img 
                 src = "noPlaylistImage.jpg"
-                className = "rounded-xl max-h-20 max-w-20"
+                onClick = {() => handleImageClick()}
+                className = "rounded-xl max-h-20 max-w-20 hover:cursor-pointer hover:brightness-50 transition duration-150"
             />
         </div>}
 

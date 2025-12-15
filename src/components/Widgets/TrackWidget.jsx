@@ -121,7 +121,7 @@ export default function TrackWidget({ setPreferences })
 
     // min-h-1/3 h-full max-h-1/3 min-w-1/6 w-full max-w-1/3
 
-    return (<div className = "border-2 border-white m-2 p-2 rounded-xl flex flex-col">
+    return (<div className = "border-2 border-r-red-600 border-l-yellow-500 border-t-blue-600 border-b-green-600 m-2 p-2 rounded-xl flex flex-col">
         <div className = "flex xl:flex-row flex-col justify-between items-center mb-1">
             <form onSubmit = {(e) => handleSubmit(e)}>
             <div>
