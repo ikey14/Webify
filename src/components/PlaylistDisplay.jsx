@@ -78,7 +78,7 @@ export default function PlaylistDisplay({ generatePlayList, updatePlayList })
             setCurrPlayList({
                 id: data.id,
                 name: data.name,
-                imgSrc: data.images?.[0]?.url,
+                imgSrc: data.images?.[0]?.url || "noPlaylistImage.jpg",
                 description: data.description,
                 trackItems: data.tracks?.items
             })
