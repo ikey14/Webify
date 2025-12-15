@@ -47,23 +47,61 @@ export default function PlaylistDisplay({ generatePlayList, updatePlayList })
     
     async function handleGeneratePlayList(id, oldTracks)
     {
-        await generatePlayList(id, oldTracks);
+        try
+        {
+            setLoading(true);
+            await generatePlayList(id, oldTracks);
+        }
+        catch(err)
+        {
+            //Nothing
+        }
+        finally
+        {
+            setLoading(false);
+        }
+        
         await handlePlaylistSelect(id);
     }
 
     async function handleUpdatePlayList(id, currTracks)
     {
-        // console.log(currTracks);
-        await updatePlayList(id, currTracks);
+        try
+        {
+            setLoading(true);
+            // console.log(currTracks);
+            await updatePlayList(id, currTracks);
+        }
+        catch(err)
+        {
+            //Nothing
+        }
+        finally
+        {
+            setLoading(false);
+        }
         await handlePlaylistSelect(id);
     }
     
     async function newPlaylist(data)
     {
-        // console.log(data)
-        const newPL = await createPlaylist(data.name, data.description, data.public);
-        // console.log(newPL);
-        setShowNewPL(false);
+        let newPL;
+        try
+        {
+            setLoading(true);
+            // console.log(data)
+            newPL = await createPlaylist(data.name, data.description, data.public);
+            // console.log(newPL);
+            setShowNewPL(false);
+        }
+        catch(err)
+        {
+
+        }
+        finally
+        {
+            setLoading(false);
+        }
 
         handlePlaylistSelect(newPL.id);
     }
